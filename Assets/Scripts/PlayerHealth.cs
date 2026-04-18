@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -29,6 +30,15 @@ public class PlayerHealth : MonoBehaviour
 
         // Safety — make sure timescale is always correct on scene load
         Time.timeScale = 1f;
+
+        deathScreen = FindObjectsByType<DeathScreen>(FindObjectsInactive.Include, FindObjectsSortMode.None).FirstOrDefault();
+
+        if (deathScreen == null) {
+            Debug.LogError("No death screen found in scene! Look in Prefabs/UI");
+        }
+        else {
+            deathScreen.StartDeathScreen();
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -54,8 +64,10 @@ public class PlayerHealth : MonoBehaviour
         // Stop the swarm
         StopSwarm();
 
-        // Show death screen
-        deathScreen.Show();
+        if (deathScreen != null) {
+            // Show death screen
+            deathScreen.Show();
+        }
     }
 
     void StopSwarm()
