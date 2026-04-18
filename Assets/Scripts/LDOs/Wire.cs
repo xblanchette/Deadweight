@@ -5,8 +5,12 @@ public class Wire : MonoBehaviour
 
     public MeshRenderer partToRecolour;
 
+    [ColorUsage(true, true)]
     public Color activatedColor;
+    [ColorUsage(true, true)]
     public Color deactivatedColour;
+
+    public int materialIndexToRecolour = 0;
 
     private void Start() {
         activatedColor.a = 1;
@@ -15,11 +19,11 @@ public class Wire : MonoBehaviour
     }
 
     public void Activate() {
-        partToRecolour.material.color = activatedColor;
+        partToRecolour.materials[materialIndexToRecolour].color = activatedColor;
     }
 
     public void Deactivate() {
-        partToRecolour.material.color = deactivatedColour;
+        partToRecolour.materials[materialIndexToRecolour].color = deactivatedColour;
     }
 
 }

@@ -16,6 +16,7 @@ public class PressurePlate : MonoBehaviour {
     public bool displayTextOnButton = true;
     public float pressedButtonYPos = -0.1f;
     public float buttonMoveLerpSpeed = 5;
+    public int materialIndex = 1;
 
     [Header("Object references")]
     public GameObject fullCollider;
@@ -45,7 +46,7 @@ public class PressurePlate : MonoBehaviour {
         notActivatedColour.a = 1;
         pressedColour.a = 1;
 
-        partToRecolour.material.color = notActivatedColour;
+        partToRecolour.materials[materialIndex].color = notActivatedColour;
         fullCollider.SetActive(false);
         smallerCollider.SetActive(true);
         checkmark.SetActive(false);
@@ -165,12 +166,11 @@ public class PressurePlate : MonoBehaviour {
     private void PressButton() {
         isPressed = true;
         SoundManager.instance.PlaySound(audioSource);
-        Debug.Log("activates");
         targetYForPartThatMoves = pressedButtonYPos;
         fullCollider.SetActive(false);
         smallerCollider.SetActive(true);
 
-        partToRecolour.material.color = pressedColour;
+        partToRecolour.materials[materialIndex].color = pressedColour;
 
         if (isPermanentPress && allPermanentButtonsHaveBeenPressedAtTheSameTime) {
             if (textOnButton != null) {
@@ -194,7 +194,7 @@ public class PressurePlate : MonoBehaviour {
         targetYForPartThatMoves = 0;
         fullCollider.SetActive(true);
         smallerCollider.SetActive(false);
-        partToRecolour.material.color = notActivatedColour;
+        partToRecolour.materials[materialIndex].color = notActivatedColour;
 
         if (isPermanentPress) {
             if (textOnButton != null) {
