@@ -29,8 +29,7 @@ public class PlayerController : MonoBehaviour {
 
     private Vector2 moveInput;
 
-    private void Awake()
-    {
+    private void Awake() {
         playerInput = GetComponent<PlayerInput>();
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
@@ -38,8 +37,7 @@ public class PlayerController : MonoBehaviour {
         playerControls = new InputSystem_Actions();
     }
 
-    private void Start()
-    {
+    private void Start() {
         SetPlayerMap();
     }
 

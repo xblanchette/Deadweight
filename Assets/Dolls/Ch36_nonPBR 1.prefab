@@ -327,6 +327,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 01e74c6017c841c479fa0850613a5e2e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4782776046310984430}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 01e74c6017c841c479fa0850613a5e2e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3396454678931218129}
     - targetCorrespondingSourceObject: {fileID: 1664083765829960058, guid: 01e74c6017c841c479fa0850613a5e2e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5621017091821205964}
@@ -1452,6 +1455,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 1
   bloodTrail: {fileID: 0}
+--- !u!114 &3396454678931218129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8652635506755454765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a348c2de7cfa1e499179b612857dfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weightValue: 1
+  buttonPresserType: 1
 --- !u!1 &8973943307256554738 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8620762613579571570, guid: 01e74c6017c841c479fa0850613a5e2e, type: 3}

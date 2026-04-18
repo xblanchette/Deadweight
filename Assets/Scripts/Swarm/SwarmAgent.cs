@@ -54,6 +54,9 @@ public class SwarmAgent : MonoBehaviour
     [Tooltip("VFX played once when the agent enters a dispel zone.")]
     public ParticleSystem dispelVFX;
 
+    [Header("Object references")]
+    public GameObject visual;
+
     // ── internals ──────────────────────────────────────────────────────────
     private Rigidbody rb;
 
@@ -153,8 +156,8 @@ public class SwarmAgent : MonoBehaviour
         if (rb.linearVelocity.sqrMagnitude > 0.01f)
             transform.rotation = Quaternion.LookRotation(rb.linearVelocity);
 
-        // Agents should always be upright
-        transform.up = Vector3.up;
+        // Agents should always be upright (the visual part)
+        visual.transform.up = Vector3.up;
     }
 
     // ── state machine ──────────────────────────────────────────────────────

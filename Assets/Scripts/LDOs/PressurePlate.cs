@@ -193,10 +193,10 @@ public class PressurePlate : MonoBehaviour {
     }
 
     private void UpdateHeightOfPartThatMoves() {
-        if (partThatMoves.transform.position.y != targetYForPartThatMoves) {
-            var newPos = partThatMoves.transform.position;
+        if (partThatMoves.transform.localPosition.y != targetYForPartThatMoves) {
+            var newPos = partThatMoves.transform.localPosition;
             newPos.y = Mathf.Lerp(newPos.y, targetYForPartThatMoves, buttonMoveLerpSpeed * Time.deltaTime);
-            partThatMoves.transform.position = newPos;
+            partThatMoves.transform.localPosition = newPos;
         }
     }
 
