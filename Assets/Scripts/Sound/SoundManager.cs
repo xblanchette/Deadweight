@@ -35,7 +35,10 @@ public class SoundManager : MonoBehaviour
     }
     public void PlaySound(AudioSource audio)
     {
-        audio.Play();
+        if (!audio.isPlaying)
+        {
+            audio.Play();
+        }
     }
     public void StopSound(AudioSource audio, float volume = 0)
     {
