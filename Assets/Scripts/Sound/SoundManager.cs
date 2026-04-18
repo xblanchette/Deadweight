@@ -41,4 +41,12 @@ public class SoundManager : MonoBehaviour
     {
         audio.Stop();
     }
+    public void PauseSound(AudioSource audio)
+    {
+        audio.Pause();
+    }
+    public void UnPauseSound(AudioSource audio)
+    {
+        audio.UnPause();
+    }
 }
