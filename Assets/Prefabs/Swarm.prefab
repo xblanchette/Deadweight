@@ -153,8 +153,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 5
   steerForce: 3
+  detectionRadius: 10
   attractionWeight: 1
   repulsionWeight: 2
   repulsionRadius: 10
-  separationRadius: 1.5
+  separationRadius: 3
   separationWeight: 1.5

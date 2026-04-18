@@ -15,6 +15,10 @@ public class SwarmAgent : MonoBehaviour
     [Tooltip("How quickly the agent changes direction.")]
     public float steerForce = 3f;
 
+    [Header("Detection")]
+    [Tooltip("Agent only chases Attractors within this radius. Set to 0 to always chase.")]
+    public float detectionRadius = 10f;
+
     [Header("Attraction")]
     [Tooltip("How strongly the agent is pulled toward Attractor prefabs.")]
     public float attractionWeight = 1f;
@@ -39,6 +43,7 @@ public class SwarmAgent : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
@@ -46,12 +51,16 @@ public class SwarmAgent : MonoBehaviour
     {
         Vector3 desired = Vector3.zero;
 
-        // ── 1. Attraction ──────────────────────────────────────────────────
+        // ── 1. Attraction (only within detection radius) ───────────────────
         SwarmAttractor[] attractors = FindObjectsByType<SwarmAttractor>(FindObjectsSortMode.None);
         foreach (SwarmAttractor a in attractors)
         {
             Vector3 toTarget = a.transform.position - transform.position;
-            // Weight falls off with distance so agents slow as they arrive
+            float distToTarget = toTarget.magnitude;
+
+            bool inRange = detectionRadius <= 0f || distToTarget <= detectionRadius;
+            if (!inRange) continue;
+
             desired += toTarget.normalized * attractionWeight;
         }
 
@@ -102,4 +111,13 @@ public class SwarmAgent : MonoBehaviour
         if (rb.linearVelocity.sqrMagnitude > 0.01f)
             transform.rotation = Quaternion.LookRotation(rb.linearVelocity);
     }
+
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        if (detectionRadius <= 0f) return;
+        Gizmos.color = new Color(1f, 1f, 0f, 0.15f);
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
+#endif
 }
