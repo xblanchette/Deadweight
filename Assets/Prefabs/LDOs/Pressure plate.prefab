@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.16}
+  m_AnchoredPosition: {x: 0, y: 0.2}
   m_SizeDelta: {x: 3, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8096377091572256490
@@ -185,13 +185,15 @@ MonoBehaviour:
   displayTextOnButton: 1
   pressedButtonYPos: 0
   buttonMoveLerpSpeed: 5
+  materialIndex: 0
   fullCollider: {fileID: 6322475524838662919}
   smallerCollider: {fileID: 8853993414224820155}
   partThatMoves: {fileID: 3760175303300468999}
   textOnButton: {fileID: 1608397885321320041}
-  partToRecolour: {fileID: 7845210653945382808}
+  partToRecolour: {fileID: 6426259905855151439}
   checkmark: {fileID: 3001479747628733561}
-  objectsToActivateWithButton: []
+  objectsToActivateWithButton:
+  - {fileID: 0}
   isPressed: 0
   isPermanentPress: 1
 --- !u!82 &6144117190567076294
@@ -453,7 +455,7 @@ Transform:
   m_GameObject: {fileID: 3001479747628733561}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.16, z: -0.000000011920927}
+  m_LocalPosition: {x: 0, y: 0.2, z: -0.000000011920927}
   m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -762,7 +764,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2176
+  m_VersionIndex: 2191
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1114,7 +1116,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1659
+  m_VersionIndex: 1674
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2727,7 +2729,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2846
+  m_VersionIndex: 2900
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4349,7 +4351,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2880
+  m_VersionIndex: 2934
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4445,7 +4447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c8794a4af621914b8ac2b99c3377a34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c8794a4af621914b8ac2b99c3377a34, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4502,8 +4504,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2c8794a4af621914b8ac2b99c3377a34, type: 3}
   m_PrefabInstance: {fileID: 3694575961529005790}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &7845210653945382808 stripped
+--- !u!23 &6426259905855151439 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -2334539416352820922, guid: 2c8794a4af621914b8ac2b99c3377a34, type: 3}
+  m_CorrespondingSourceObject: {fileID: -1555030408667141231, guid: 2c8794a4af621914b8ac2b99c3377a34, type: 3}
   m_PrefabInstance: {fileID: 3694575961529005790}
   m_PrefabAsset: {fileID: 0}
