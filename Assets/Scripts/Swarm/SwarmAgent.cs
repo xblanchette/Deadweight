@@ -53,9 +53,6 @@ public class SwarmAgent : MonoBehaviour
     [Tooltip("VFX played once when the agent enters a dispel zone.")]
     public ParticleSystem dispelVFX;
 
-    [Header("Object references")]
-    public GameObject visual;
-
     // ── internals ──────────────────────────────────────────────────────────
     private Rigidbody rb;
 
@@ -154,11 +151,8 @@ public class SwarmAgent : MonoBehaviour
         // ── 5. Face movement direction ─────────────────────────────────────
         if (rb.linearVelocity.sqrMagnitude > 0.01f)
             transform.rotation = Quaternion.LookRotation(rb.linearVelocity);
-
-        // Agents should always be upright (the visual part)
-        visual.transform.up = Vector3.up;
     }
-        
+
     /// <summary>Forces the agent into Idle state — called on player death.</summary>
     public void ForceIdle()
     {
