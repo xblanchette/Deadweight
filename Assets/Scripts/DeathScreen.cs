@@ -30,17 +30,30 @@ public class DeathScreen : MonoBehaviour
     // ── internals ──────────────────────────────────────────────────────────
     private PlayerHealth playerHealth;
 
+    private bool startHasBeenCalled = false;
+
     void Awake()
     {
+
+    }
+
+    void Start()
+    {
+        StartDeathScreen();
+    }
+
+    public void StartDeathScreen() {
+        if (startHasBeenCalled) {
+            return;
+        }
+        startHasBeenCalled = true;
+
         // Make sure screen starts hidden
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
         gameObject.SetActive(false);
-    }
 
-    void Start()
-    {
         playerHealth = FindFirstObjectByType<PlayerHealth>();
 
         restartButton.onClick.AddListener(OnRestart);
