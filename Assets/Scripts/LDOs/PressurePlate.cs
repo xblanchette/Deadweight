@@ -28,7 +28,8 @@ public class PressurePlate : MonoBehaviour {
     public bool isPressed = false;
 
     // This is determined by the object this button activates
-    private bool isPermanentPress = true;
+    [HideInInspector]
+    public bool isPermanentPress = true;
 
     private bool allPermanentButtonsHaveBeenPressedAtTheSameTime = false;
 
@@ -192,10 +193,10 @@ public class PressurePlate : MonoBehaviour {
     }
 
     private void UpdateHeightOfPartThatMoves() {
-        if (partThatMoves.transform.position.y != targetYForPartThatMoves) {
-            var newPos = partThatMoves.transform.position;
+        if (partThatMoves.transform.localPosition.y != targetYForPartThatMoves) {
+            var newPos = partThatMoves.transform.localPosition;
             newPos.y = Mathf.Lerp(newPos.y, targetYForPartThatMoves, buttonMoveLerpSpeed * Time.deltaTime);
-            partThatMoves.transform.position = newPos;
+            partThatMoves.transform.localPosition = newPos;
         }
     }
 

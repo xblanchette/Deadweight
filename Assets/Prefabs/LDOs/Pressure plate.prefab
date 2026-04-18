@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ca53190ea8d36409119d841c4cf430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thingsThatCanActivateButton: 00000000
+  thingsThatCanActivateButton: 0000000001000000
   numberOfObjectsRequired: 1
   notActivatedColour: {r: 0.65882355, g: 0.08627451, b: 0.08627451, a: 1}
   pressedColour: {r: 0.1282886, g: 0.6792453, b: 0.079031564, a: 1}
@@ -189,7 +189,8 @@ MonoBehaviour:
   partToRecolour: {fileID: 2106714310563920020}
   checkmark: {fileID: 3001479747628733561}
   objectsToActivateWithButton: []
-  wiresToActivate: []
+  isPressed: 0
+  isPermanentPress: 1
 --- !u!1 &2009593739133336536
 GameObject:
   m_ObjectHideFlags: 0
