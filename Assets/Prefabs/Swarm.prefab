@@ -151,11 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26dad7e49724fa48b7956105664c18b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
+  maxSpeed: 3
   steerForce: 3
-  detectionRadius: 10
+  detectionRadius: 15
   attractionWeight: 1
-  repulsionWeight: 2
-  repulsionRadius: 10
-  separationRadius: 3
-  separationWeight: 1.5
+  repulsionWeight: 5
+  separationRadius: 2
+  separationWeight: 2

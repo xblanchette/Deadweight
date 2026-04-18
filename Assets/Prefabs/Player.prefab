@@ -261,8 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9aa9d36cf3781944b3a67082f7b683b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalMoveSpeed: 6
-  carryingMoveSpeed: 4
+  normalMoveSpeed: 4
+  carryingMoveSpeed: 3
   rotationSpeedSmoothness: 5
   deadzone: 0.15
   normalizeMoveInput: 1
@@ -292,6 +292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a348c2de7cfa1e499179b612857dfa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weightValue: 1
+  buttonPresserType: 0
 --- !u!1 &8189910126411252655
 GameObject:
   m_ObjectHideFlags: 0
