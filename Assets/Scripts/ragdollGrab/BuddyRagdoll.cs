@@ -12,7 +12,7 @@ public class BuddyRagdoll : MonoBehaviour
 
     [Header("References")]
     [Tooltip("Assign the blood trail ParticleSystem here (placeholder).")]
-    public ParticleSystem bloodTrail;
+    public TrailRenderer bloodTrail;
 
     // ── state ──────────────────────────────────────────────────────────────
     public bool IsHeld { get; private set; }
@@ -49,7 +49,8 @@ public class BuddyRagdoll : MonoBehaviour
 
         // Blood trail stub — enable particle system if assigned
         if (bloodTrail != null)
-            bloodTrail.Play();
+            //bloodTrail.Play();
+            bloodTrail.emitting = true;
     }
 
     /// <summary>Called by PlayerGrabber when the player releases.</summary>
@@ -70,7 +71,7 @@ public class BuddyRagdoll : MonoBehaviour
 
         // Stop blood trail
         if (bloodTrail != null)
-            bloodTrail.Stop();
+            bloodTrail.emitting = false;
     }
 
     /// <summary>Force-drop from external systems (death, cutscene, teleport, etc.).</summary>
