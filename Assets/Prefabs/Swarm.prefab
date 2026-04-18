@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8190280085856329943}
   - component: {fileID: 8634128123594671045}
   - component: {fileID: 659810966566880843}
+  - component: {fileID: 7260879790992392898}
   m_Layer: 0
   m_Name: Swarm
   m_TagString: Untagged
@@ -159,3 +160,17 @@ MonoBehaviour:
   repulsionRadius: 10
   separationRadius: 3
   separationWeight: 1.5
+--- !u!114 &7260879790992392898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6451500696774426983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a348c2de7cfa1e499179b612857dfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weightValue: 1
+  buttonPresserType: 2
