@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
             instance = this;
         }
     }
-   public void PlaySound(AudioSource audio, float volume = 0, AudioClip clip = null)
+   public void PlaySoundOneShot(AudioSource audio, float volume = 0, AudioClip clip = null)
     {
         audio.volume = volume;
         audio.PlayOneShot(clip);
@@ -33,5 +33,12 @@ public class SoundManager : MonoBehaviour
         audio.pitch = Random.Range(minPitch,maxPitch);
         audio.PlayOneShot(clip);
     }
-
+    public void PlaySound(AudioSource audio, float volume = 0)
+    {
+        audio.Play();
+    }
+    public void StopSound(AudioSource audio, float volume = 0)
+    {
+        audio.Stop();
+    }
 }
