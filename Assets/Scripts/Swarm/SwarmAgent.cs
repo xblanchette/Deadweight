@@ -4,6 +4,8 @@ using UnityEngine;
 /// Attach this to each swarm unit prefab.
 /// The agent steers toward all Attractors and away from all Repulsors in the scene,
 /// while also doing basic flocking (separation from siblings).
+/// Supports a linger state: if the player leaves detection radius, the agent keeps
+/// chasing for lingerDuration seconds before going idle.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class SwarmAgent : MonoBehaviour
@@ -18,6 +20,10 @@ public class SwarmAgent : MonoBehaviour
     [Header("Detection")]
     [Tooltip("Agent only chases Attractors within this radius. Set to 0 to always chase.")]
     public float detectionRadius = 10f;
+
+    [Header("Linger")]
+    [Tooltip("How long the agent keeps chasing the player after leaving the detection radius.")]
+    public float lingerDuration = 3f;
 
     [Header("Attraction")]
     [Tooltip("How strongly the agent is pulled toward Attractor prefabs.")]
@@ -34,6 +40,12 @@ public class SwarmAgent : MonoBehaviour
     [Tooltip("How strongly the agent avoids its siblings.")]
     public float separationWeight = 1.5f;
 
+    // ── state ──────────────────────────────────────────────────────────────
+    private enum AgentState { Idle, Chasing, Lingering }
+    private AgentState state = AgentState.Idle;
+    private float lingerTimer = 0f;
+    private SwarmAttractor playerAttractor;
+
     // ── internals ──────────────────────────────────────────────────────────
     private Rigidbody rb;
 
@@ -46,19 +58,32 @@ public class SwarmAgent : MonoBehaviour
 
     void FixedUpdate()
     {
+        UpdatePlayerAttractorRef();
+        UpdateState();
+
         Vector3 desired = Vector3.zero;
 
-        // ── 1. Attraction (only within detection radius) ───────────────────
-        SwarmAttractor[] attractors = FindObjectsByType<SwarmAttractor>(FindObjectsSortMode.None);
-        foreach (SwarmAttractor a in attractors)
+        // ── 1. Attraction ──────────────────────────────────────────────────
+        if (state != AgentState.Idle)
         {
-            Vector3 toTarget = a.transform.position - transform.position;
-            float distToTarget = toTarget.magnitude;
+            SwarmAttractor[] attractors = FindObjectsByType<SwarmAttractor>(FindObjectsSortMode.None);
+            foreach (SwarmAttractor a in attractors)
+            {
+                // Non-player attractors always apply regardless of state
+                if (a.isPlayer && state == AgentState.Idle) continue;
 
-            bool inRange = detectionRadius <= 0f || distToTarget <= detectionRadius;
-            if (!inRange) continue;
+                Vector3 toTarget = a.transform.position - transform.position;
+                float distToTarget = toTarget.magnitude;
 
-            desired += toTarget.normalized * attractionWeight;
+                // Detection radius only applies to the player attractor
+                if (a.isPlayer)
+                {
+                    bool inRange = detectionRadius <= 0f || distToTarget <= detectionRadius;
+                    if (!inRange && state != AgentState.Lingering) continue;
+                }
+
+                desired += toTarget.normalized * attractionWeight;
+            }
         }
 
         // ── 2. Repulsion ───────────────────────────────────────────────────
@@ -70,7 +95,6 @@ public class SwarmAgent : MonoBehaviour
 
             if (dist < r.repulsionRadius && dist > 0.001f)
             {
-                // Stronger push the closer the repulsor
                 float strength = (r.repulsionRadius - dist) / r.repulsionRadius;
                 desired += away.normalized * strength * repulsionWeight;
             }
@@ -93,13 +117,17 @@ public class SwarmAgent : MonoBehaviour
         }
 
         // ── 4. Steer ───────────────────────────────────────────────────────
-        if (desired != Vector3.zero)
+        if (state == AgentState.Idle)
+        {
+            // Bleed off velocity smoothly
+            rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, Vector3.zero, Time.fixedDeltaTime * steerForce);
+        }
+        else if (desired != Vector3.zero)
         {
             Vector3 targetVelocity = desired.normalized * maxSpeed;
             Vector3 steering = (targetVelocity - rb.linearVelocity) * steerForce;
             rb.AddForce(steering, ForceMode.Acceleration);
 
-            // Clamp speed
             if (rb.linearVelocity.magnitude > maxSpeed)
                 rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
         }
@@ -107,6 +135,61 @@ public class SwarmAgent : MonoBehaviour
         // ── 5. Face movement direction ─────────────────────────────────────
         if (rb.linearVelocity.sqrMagnitude > 0.01f)
             transform.rotation = Quaternion.LookRotation(rb.linearVelocity);
+    }
+
+    // ── state machine ──────────────────────────────────────────────────────
+
+    void UpdatePlayerAttractorRef()
+    {
+        if (playerAttractor != null) return;
+
+        SwarmAttractor[] attractors = FindObjectsByType<SwarmAttractor>(FindObjectsSortMode.None);
+        foreach (SwarmAttractor a in attractors)
+        {
+            if (a.isPlayer) { playerAttractor = a; break; }
+        }
+    }
+
+    void UpdateState()
+    {
+        if (playerAttractor == null)
+        {
+            state = AgentState.Idle;
+            return;
+        }
+
+        float distToPlayer = Vector3.Distance(transform.position, playerAttractor.transform.position);
+        bool playerInRange = detectionRadius <= 0f || distToPlayer <= detectionRadius;
+
+        switch (state)
+        {
+            case AgentState.Idle:
+                if (playerInRange)
+                    state = AgentState.Chasing;
+                break;
+
+            case AgentState.Chasing:
+                if (!playerInRange)
+                {
+                    state = AgentState.Lingering;
+                    lingerTimer = lingerDuration;
+                }
+                break;
+
+            case AgentState.Lingering:
+                if (playerInRange)
+                {
+                    // Player came back into range — resume chasing
+                    state = AgentState.Chasing;
+                }
+                else
+                {
+                    lingerTimer -= Time.fixedDeltaTime;
+                    if (lingerTimer <= 0f)
+                        state = AgentState.Idle;
+                }
+                break;
+        }
     }
 
 #if UNITY_EDITOR
