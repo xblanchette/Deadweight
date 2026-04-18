@@ -1,8 +1,8 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
-/// Optional helper — drop this in the scene to spawn a bunch of agents at startup.
-/// Assign your agent prefab (with SwarmAgent on it) in the Inspector.
+/// Spawns swarm agents at valid NavMesh positions around this object.
 /// </summary>
 public class SwarmSpawner : MonoBehaviour
 {
@@ -23,11 +23,26 @@ public class SwarmSpawner : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < count; i++)
+        int spawned = 0;
+        int attempts = 0;
+        int maxAttempts = count * 5; // avoid infinite loop
+
+        while (spawned < count && attempts < maxAttempts)
         {
-            Vector3 offset = Random.insideUnitSphere * spawnRadius;
-            Instantiate(agentPrefab, transform.position + offset, Random.rotation);
+            attempts++;
+            Vector3 randomOffset = Random.insideUnitSphere * spawnRadius;
+            Vector3 candidate = transform.position + randomOffset;
+
+            // Find nearest valid NavMesh position
+            if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, spawnRadius, NavMesh.AllAreas))
+            {
+                Instantiate(agentPrefab, hit.position, Random.rotation);
+                spawned++;
+            }
         }
+
+        if (spawned < count)
+            Debug.LogWarning($"SwarmSpawner: only spawned {spawned}/{count} agents — not enough NavMesh coverage.");
     }
 
 #if UNITY_EDITOR
