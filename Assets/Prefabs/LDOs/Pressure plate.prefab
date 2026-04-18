@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ca53190ea8d36409119d841c4cf430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 6144117190567076294}
   thingsThatCanActivateButton: 0000000001000000
   numberOfObjectsRequired: 1
   notActivatedColour: {r: 0.65882355, g: 0.08627451, b: 0.08627451, a: 1}

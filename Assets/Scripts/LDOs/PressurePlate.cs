@@ -151,15 +151,21 @@ public class PressurePlate : MonoBehaviour {
             UnPressButton();
         }
 
-        if (isPressed && isPermanentPress && !allPermanentButtonsHaveBeenPressedAtTheSameTime) {
+        if (isPressed && isPermanentPress && !allPermanentButtonsHaveBeenPressedAtTheSameTime)
+        {
             allPermanentButtonsHaveBeenPressedAtTheSameTime = otherButtonsThatActivateTheSameObjects.All(x => x.isPressed);
-            PressButton();
+            if (allPermanentButtonsHaveBeenPressedAtTheSameTime)
+            {
+                PressButton();
+            }
+            
         }
     }
 
     private void PressButton() {
         isPressed = true;
-        SoundManager.instance.PlaySoundOneShot(audioSource, audioSource.volume, audioSource.clip);
+        SoundManager.instance.PlaySound(audioSource);
+        Debug.Log("activates");
         targetYForPartThatMoves = pressedButtonYPos;
         fullCollider.SetActive(false);
         smallerCollider.SetActive(true);
