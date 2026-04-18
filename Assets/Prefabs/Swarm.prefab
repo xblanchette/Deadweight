@@ -4998,10 +4998,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 1
   acceleration: 8
-  detectionRadius: 15
+  detectionRadius: 9
   lingerDuration: 3
-  repulsionWeight: 5
-  dispelVFX: {fileID: 0}
+  repulsionWeight: 100
+  dispelVFX: {fileID: 2350855168524139345}
 --- !u!114 &7002550931379695458
 MonoBehaviour:
   m_ObjectHideFlags: 0
