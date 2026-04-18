@@ -46,6 +46,14 @@ public class SwarmAgent : MonoBehaviour
     private float lingerTimer = 0f;
     private SwarmAttractor playerAttractor;
 
+    // ── dispel ─────────────────────────────────────────────────────────────
+    private bool isDispelled = false;
+    private Renderer agentRenderer;
+
+    [Header("Dispel")]
+    [Tooltip("VFX played once when the agent enters a dispel zone.")]
+    public ParticleSystem dispelVFX;
+
     // ── internals ──────────────────────────────────────────────────────────
     private Rigidbody rb;
 
@@ -54,12 +62,21 @@ public class SwarmAgent : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
+        agentRenderer = GetComponentInChildren<Renderer>();
     }
 
     void FixedUpdate()
     {
         UpdatePlayerAttractorRef();
         UpdateState();
+        CheckDispelZones();
+
+        // Skip all steering while dispelled
+        if (isDispelled)
+        {
+            rb.linearVelocity = Vector3.zero;
+            return;
+        }
 
         Vector3 desired = Vector3.zero;
 
@@ -189,6 +206,38 @@ public class SwarmAgent : MonoBehaviour
                         state = AgentState.Idle;
                 }
                 break;
+        }
+    }
+
+    // ── dispel ─────────────────────────────────────────────────────────────
+
+    void CheckDispelZones()
+    {
+        SwarmRepulsor[] repulsors = FindObjectsByType<SwarmRepulsor>(FindObjectsSortMode.None);
+        bool insideAnyDispelZone = false;
+
+        foreach (SwarmRepulsor r in repulsors)
+        {
+            float dist = Vector3.Distance(transform.position, r.transform.position);
+            if (dist < r.dispelRadius)
+            {
+                insideAnyDispelZone = true;
+                break;
+            }
+        }
+
+        if (insideAnyDispelZone && !isDispelled)
+        {
+            // Entering dispel zone
+            isDispelled = true;
+            if (agentRenderer != null) agentRenderer.enabled = false;
+            if (dispelVFX != null) dispelVFX.Play();
+        }
+        else if (!insideAnyDispelZone && isDispelled)
+        {
+            // Exiting dispel zone
+            isDispelled = false;
+            if (agentRenderer != null) agentRenderer.enabled = true;
         }
     }
 
