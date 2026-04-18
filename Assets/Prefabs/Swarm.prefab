@@ -141,6 +141,7 @@ MonoBehaviour:
   separationRadius: 2
   separationWeight: 2
   dispelVFX: {fileID: 0}
+  visual: {fileID: 6199141891745659128}
 --- !u!114 &7002550931379695458
 MonoBehaviour:
   m_ObjectHideFlags: 0

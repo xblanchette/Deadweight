@@ -8,6 +8,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour {
 
+    public AudioSource walkSound;
+    public bool isWalking=false;
+
     public float normalMoveSpeed = 6.0f;
     public float carryingMoveSpeed = 4.0f;
 
@@ -41,6 +44,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Start() {
         SetPlayerMap();
+        SoundManager.instance.PlaySound(walkSound);
     }
 
     private void SetPlayerMap() {
@@ -102,10 +106,19 @@ public class PlayerController : MonoBehaviour {
 
         var moveVector = (isCarryingSomething ? -1 : 1) * targetSpeed * transform.forward;
         rb.linearVelocity = new Vector3(moveVector.x, rb.linearVelocity.y, moveVector.z);
+        if (!isWalking)
+        {
+            isWalking = true;
+            SoundManager.instance.UnPauseSound(walkSound);
+        }
+
+
     }
 
     private void NoMovement() {
         rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+        isWalking = false;
+        SoundManager.instance.PauseSound(walkSound);
     }
 
     private void MoveCamera() {
