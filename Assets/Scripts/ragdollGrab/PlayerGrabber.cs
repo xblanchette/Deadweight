@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 
 public class PlayerGrabber : MonoBehaviour
 {
@@ -38,17 +39,18 @@ public class PlayerGrabber : MonoBehaviour
 
     // ── input ──────────────────────────────────────────────────────────────
     private InputSystem_Actions playerControls;
+    private PlayerController playerController;
 
     void Start()
     {
-        PlayerController controller = GetComponent<PlayerController>();
-        if (controller == null)
+        playerController = GetComponent<PlayerController>();
+        if (playerController == null)
         {
             Debug.LogError("PlayerGrabber: no PlayerController found on this GameObject.");
             return;
         }
 
-        playerControls = controller.playerControls;
+        playerControls = playerController.playerControls;
         playerControls.Player.Interact.performed += OnInteract;
     }
 
@@ -64,6 +66,8 @@ public class PlayerGrabber : MonoBehaviour
             TryGrab();
         else
             Release();
+
+        playerController.isCarryingSomething = heldBuddy != null;
     }
 
     void Update()
@@ -72,6 +76,8 @@ public class PlayerGrabber : MonoBehaviour
             DetectBuddy();
         else
             CheckAutoDropDistance();
+
+
     }
 
     // ── detection ─────────────────────────────────────────────────────────
