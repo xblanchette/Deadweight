@@ -27,9 +27,6 @@ public class SwarmAgent : MonoBehaviour
     [Tooltip("How strongly the agent is pushed away from Repulsor prefabs.")]
     public float repulsionWeight = 2f;
 
-    [Tooltip("Agents start fleeing once a Repulsor is within this radius.")]
-    public float repulsionRadius = 5f;
-
     [Header("Separation (flocking)")]
     [Tooltip("Minimum desired distance from sibling agents.")]
     public float separationRadius = 1.5f;
@@ -71,10 +68,10 @@ public class SwarmAgent : MonoBehaviour
             Vector3 away = transform.position - r.transform.position;
             float dist = away.magnitude;
 
-            if (dist < repulsionRadius && dist > 0.001f)
+            if (dist < r.repulsionRadius && dist > 0.001f)
             {
                 // Stronger push the closer the repulsor
-                float strength = (repulsionRadius - dist) / repulsionRadius;
+                float strength = (r.repulsionRadius - dist) / r.repulsionRadius;
                 desired += away.normalized * strength * repulsionWeight;
             }
         }
@@ -115,9 +112,14 @@ public class SwarmAgent : MonoBehaviour
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
-        if (detectionRadius <= 0f) return;
-        Gizmos.color = new Color(1f, 1f, 0f, 0.15f);
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        if (detectionRadius > 0f)
+        {
+            Gizmos.color = new Color(1f, 1f, 0f, 1f);
+            Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        }
+
+        Gizmos.color = new Color(0f, 0.8f, 1f, 1f);
+        Gizmos.DrawWireSphere(transform.position, separationRadius);
     }
 #endif
 }
