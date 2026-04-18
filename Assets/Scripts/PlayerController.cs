@@ -96,7 +96,9 @@ public class PlayerController : MonoBehaviour {
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeedSmoothness * Time.fixedDeltaTime);
 
-        var moveVector = (isCarryingSomething ? -1 : 1) * normalMoveSpeed * transform.forward;
+        var targetSpeed = isCarryingSomething ? carryingMoveSpeed : normalMoveSpeed;
+
+        var moveVector = (isCarryingSomething ? -1 : 1) * targetSpeed * transform.forward;
         rb.linearVelocity = new Vector3(moveVector.x, rb.linearVelocity.y, moveVector.z);
     }
 
