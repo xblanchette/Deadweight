@@ -63,6 +63,9 @@ public class PlayerController : MonoBehaviour {
     private void HandleMovement() {
         var move = new Vector3(moveInput.x, 0, moveInput.y);
 
+        // You can never have upward momentum
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, 0), rb.linearVelocity.z);
+
         if (move.magnitude < deadzone) {
             NoMovement();
             return;
@@ -92,7 +95,7 @@ public class PlayerController : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeedSmoothness * Time.fixedDeltaTime);
 
         var moveVector = (isCarryingSomething ? -1 : 1) * normalMoveSpeed * transform.forward;
-        rb.linearVelocity = moveVector;
+        rb.linearVelocity = new Vector3(moveVector.x, rb.linearVelocity.y, moveVector.z);
     }
 
     private void NoMovement() {

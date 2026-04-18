@@ -110,6 +110,9 @@ public class SwarmAgent : MonoBehaviour
         // ── 5. Face movement direction ─────────────────────────────────────
         if (rb.linearVelocity.sqrMagnitude > 0.01f)
             transform.rotation = Quaternion.LookRotation(rb.linearVelocity);
+
+        // Agents should always be upright
+        transform.up = Vector3.up;
     }
 
 #if UNITY_EDITOR
