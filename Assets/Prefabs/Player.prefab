@@ -216,7 +216,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -392,7 +392,7 @@ MonoBehaviour:
   carryingRotationSpeedSmoothness: 1
   deadzone: 0.15
   normalizeMoveInput: 1
-  cameraOffset: {x: -7, y: 10, z: -9}
+  cameraOffset: {x: -12, y: 10, z: -12}
   isCarryingSomething: 0
 --- !u!114 &3267586150934066557
 MonoBehaviour:
@@ -412,7 +412,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   gripProxy: {fileID: 9047220282900998472}
-  jointPositionSpring: 3000
+  jointPositionSpring: 1500
   jointPositionDamper: 100
   jointMaxForce: 5000
   maxCarryDistance: 2
