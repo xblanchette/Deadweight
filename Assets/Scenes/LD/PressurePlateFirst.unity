@@ -7419,6 +7419,10 @@ PrefabInstance:
       propertyPath: jointPositionSpring
       value: 1500
       objectReference: {fileID: 0}
+    - target: {fileID: 3410153543796735486, guid: 1e9f9073f8e220e4aa7dec2182f93e55, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 7781112685787836671, guid: 1e9f9073f8e220e4aa7dec2182f93e55, type: 3}
       propertyPath: m_Name
       value: Player
