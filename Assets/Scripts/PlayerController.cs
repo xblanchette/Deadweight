@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour {
     public bool normalizeMoveInput = true;
     public Vector3 cameraOffset;
 
+    [HideInInspector]
+    public bool isCarryingSomething = false;
+
     private Rigidbody rb;
     private Vector3 virtualInputForward;
 
@@ -80,9 +83,15 @@ public class PlayerController : MonoBehaviour {
         virtualInputForward = Vector3.RotateTowards(virtualInputForward, move, 1000f, 0f);
 
         var targetRot = Quaternion.LookRotation(virtualInputForward);
+
+        if (isCarryingSomething) {
+            // When you are carrying something, you are walking backwards
+            targetRot = Quaternion.Euler(0, 180, 0) * targetRot;
+        }
+
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeedSmoothness * Time.fixedDeltaTime);
 
-        var moveVector = normalMoveSpeed * move;
+        var moveVector = (isCarryingSomething ? -1 : 1) * normalMoveSpeed * transform.forward;
         rb.linearVelocity = moveVector;
     }
 
