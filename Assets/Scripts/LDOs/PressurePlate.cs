@@ -99,10 +99,11 @@ public class PressurePlate : MonoBehaviour {
             return;
         }
 
-        var buttonPresser = objectEntered.GetComponent<ButtonPresser>();
+        var buttonPresser = objectEntered.GetComponentInParent<ButtonPresser>();
         if (buttonPresser == null) {
             return;
         }
+        objectEntered = buttonPresser.gameObject;
 
         if (objectsPressingOnButton.Contains(objectEntered)) {
             return;
@@ -117,8 +118,19 @@ public class PressurePlate : MonoBehaviour {
     }
 
     private void OnTriggerExit(Collider other) {
-        if (objectsPressingOnButton.Contains(other.gameObject)) {
-            objectsPressingOnButton.Remove(other.gameObject);
+        var objectEntered = other.gameObject;
+        if (objectEntered == null) {
+            return;
+        }
+
+        var buttonPresser = objectEntered.GetComponentInParent<ButtonPresser>();
+        if (buttonPresser == null) {
+            return;
+        }
+        objectEntered = buttonPresser.gameObject;
+
+        if (objectsPressingOnButton.Contains(objectEntered)) {
+            objectsPressingOnButton.Remove(objectEntered);
         }
     }
 
