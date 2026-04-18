@@ -266,7 +266,7 @@ MonoBehaviour:
   rotationSpeedSmoothness: 5
   deadzone: 0.15
   normalizeMoveInput: 1
-  cameraOffset: {x: -7, y: 10, z: -9}
+  cameraOffset: {x: -12, y: 10, z: -12}
   isCarryingSomething: 0
 --- !u!114 &-5860829847531484612
 MonoBehaviour:
