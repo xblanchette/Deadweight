@@ -99,7 +99,9 @@ public class DeathScreen : MonoBehaviour
 
     void SelectDefaultButton()
     {
-        EventSystem.current.SetSelectedGameObject(null);
+        if (EventSystem.current != null) {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
         firstSelectedButton.Select();
     }
 
