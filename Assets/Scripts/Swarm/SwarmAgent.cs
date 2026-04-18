@@ -34,6 +34,9 @@ public class SwarmAgent : MonoBehaviour
     [Tooltip("How strongly the agent avoids its siblings.")]
     public float separationWeight = 1.5f;
 
+    [Header("Object references")]
+    public GameObject visual;
+
     // ── internals ──────────────────────────────────────────────────────────
     private Rigidbody rb;
 
@@ -108,8 +111,8 @@ public class SwarmAgent : MonoBehaviour
         if (rb.linearVelocity.sqrMagnitude > 0.01f)
             transform.rotation = Quaternion.LookRotation(rb.linearVelocity);
 
-        // Agents should always be upright
-        transform.up = Vector3.up;
+        // Agents should always be upright (the visual, at least)
+        visual.transform.up = Vector3.up;
     }
 
 #if UNITY_EDITOR

@@ -28,7 +28,8 @@ public class PressurePlate : MonoBehaviour {
     public bool isPressed = false;
 
     // This is determined by the object this button activates
-    private bool isPermanentPress = true;
+    [HideInInspector]
+    public bool isPermanentPress = true;
 
     private bool allPermanentButtonsHaveBeenPressedAtTheSameTime = false;
 
