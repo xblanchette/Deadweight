@@ -40,7 +40,6 @@ public class SwarmAgent : MonoBehaviour
     [Tooltip("How strongly the agent avoids its siblings.")]
     public float separationWeight = 1.5f;
 
-    // ── state ──────────────────────────────────────────────────────────────
     private enum AgentState { Idle, Chasing, Lingering }
     private AgentState state = AgentState.Idle;
     private float lingerTimer = 0f;
@@ -158,6 +157,13 @@ public class SwarmAgent : MonoBehaviour
 
         // Agents should always be upright (the visual part)
         visual.transform.up = Vector3.up;
+    }
+        
+    /// <summary>Forces the agent into Idle state — called on player death.</summary>
+    public void ForceIdle()
+    {
+        state = AgentState.Idle;
+        rb.linearVelocity = Vector3.zero;
     }
 
     // ── state machine ──────────────────────────────────────────────────────
