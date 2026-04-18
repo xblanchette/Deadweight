@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1580333752786160864}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 6705384182688502616}
   - component: {fileID: 1523529253465445788}
   - component: {fileID: 9047220282900998472}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GripProxy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: -5860829847531484612}
   - component: {fileID: 7408769541267958650}
   - component: {fileID: 5770748030567512653}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -409,7 +409,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   gripProxy: {fileID: 9047220282900998472}
-  jointPositionSpring: 3000
+  jointPositionSpring: 1500
   jointPositionDamper: 100
   jointMaxForce: 5000
   maxCarryDistance: 2
@@ -457,7 +457,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2499069060867168846}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Part to rotate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 8090671069182447736}
   - component: {fileID: 1268201633803888502}
   - component: {fileID: 6938235953823590711}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
