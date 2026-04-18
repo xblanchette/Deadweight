@@ -12,14 +12,16 @@ public class PlayerController : MonoBehaviour {
     public float carryingMoveSpeed = 4.0f;
 
     public float rotationSpeedSmoothness = 5f;
+    public float carryingRotationSpeedSmoothness = 1f;
     public float deadzone = 0.15f;
     public bool normalizeMoveInput = true;
     public Vector3 cameraOffset;
-    public InputSystem_Actions playerControls;
-
 
     [HideInInspector]
     public bool isCarryingSomething = false;
+
+    [HideInInspector]
+    public InputSystem_Actions playerControls;
 
     private Rigidbody rb;
     private Vector3 virtualInputForward;
@@ -92,7 +94,9 @@ public class PlayerController : MonoBehaviour {
             targetRot = Quaternion.Euler(0, 180, 0) * targetRot;
         }
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeedSmoothness * Time.fixedDeltaTime);
+        var targetRotationSmoothness = isCarryingSomething ? carryingRotationSpeedSmoothness : rotationSpeedSmoothness;
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, targetRotationSmoothness * Time.fixedDeltaTime);
 
         var targetSpeed = isCarryingSomething ? carryingMoveSpeed : normalMoveSpeed;
 
