@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 3267586150934066557}
   - component: {fileID: -5860829847531484612}
   - component: {fileID: 7408769541267958650}
+  - component: {fileID: 5770748030567512653}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -371,6 +372,7 @@ MonoBehaviour:
   normalMoveSpeed: 4
   carryingMoveSpeed: 3
   rotationSpeedSmoothness: 5
+  carryingRotationSpeedSmoothness: 1
   deadzone: 0.15
   normalizeMoveInput: 1
   cameraOffset: {x: -7, y: 10, z: -9}
@@ -424,6 +426,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weightValue: 1
   buttonPresserType: 0
+--- !u!81 &5770748030567512653
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7781112685787836671}
+  m_Enabled: 1
 --- !u!1 &8189910126411252655
 GameObject:
   m_ObjectHideFlags: 0
