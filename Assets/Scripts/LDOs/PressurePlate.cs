@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PressurePlate : MonoBehaviour {
 
+    public AudioSource audioSource;
+
     public List<ButtonPresserType> thingsThatCanActivateButton = new();
     public int numberOfObjectsRequired = 1;
 
@@ -157,6 +159,7 @@ public class PressurePlate : MonoBehaviour {
 
     private void PressButton() {
         isPressed = true;
+        SoundManager.instance.PlaySoundOneShot(audioSource, audioSource.volume, audioSource.clip);
         targetYForPartThatMoves = pressedButtonYPos;
         fullCollider.SetActive(false);
         smallerCollider.SetActive(true);
