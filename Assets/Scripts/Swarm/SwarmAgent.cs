@@ -1,3 +1,4 @@
+using System.Xml.Serialization;
 using UnityEngine;
 
 /// <summary>
@@ -10,6 +11,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class SwarmAgent : MonoBehaviour
 {
+    [Header("Audio")]
+    public AudioSource audioSource ;
+
     [Header("Movement")]
     [Tooltip("Maximum travel speed.")]
     public float maxSpeed = 5f;
@@ -62,6 +66,9 @@ public class SwarmAgent : MonoBehaviour
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         agentRenderer = GetComponentInChildren<Renderer>();
+        // Desync zombies sounds
+
+        Invoke("WhisperSound", Random.Range(0f, 2f));
     }
 
     void FixedUpdate()
@@ -213,6 +220,10 @@ public class SwarmAgent : MonoBehaviour
                 }
                 break;
         }
+    }
+    public void WhisperSound()
+    {
+        SoundManager.instance.PlaySound(audioSource);
     }
 
     // ── dispel ─────────────────────────────────────────────────────────────
