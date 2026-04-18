@@ -1,10 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class PressurePlate : MonoBehaviour {
-
-    public bool isPermanentPress = false;
 
     public List<ButtonPresserType> thingsThatCanActivateButton = new();
     public int numberOfObjectsRequired = 1;
@@ -22,10 +21,22 @@ public class PressurePlate : MonoBehaviour {
     public GameObject partThatMoves;
     public TextMeshProUGUI textOnButton;
     public MeshRenderer partToRecolour;
+    public GameObject checkmark;
+    public List<GameObject> objectsToActivateWithButton = new();
+
+    [HideInInspector]
+    public bool isPressed = false;
+
+    // This is determined by the object this button activates
+    private bool isPermanentPress = true;
+
+    private bool allPermanentButtonsHaveBeenPressedAtTheSameTime = false;
 
     private List<GameObject> objectsPressingOnButton = new();
-    private bool isPressed = false;
     private float targetYForPartThatMoves = 0;
+    private List<Wire> wiresToActivate = new();
+    private List<ActivateByPressurePlate> activatedByPressurePlate = new();
+    private List<PressurePlate> otherButtonsThatActivateTheSameObjects = new();
 
     private void Start() {
         notActivatedColour.a = 1;
@@ -34,6 +45,51 @@ public class PressurePlate : MonoBehaviour {
         partToRecolour.material.color = notActivatedColour;
         fullCollider.SetActive(false);
         smallerCollider.SetActive(true);
+        checkmark.SetActive(false);
+        Invoke(nameof(FindOtherButtonsThatActivateTheSameObjects), 0);
+
+        if (!objectsToActivateWithButton.Any()) {
+            Debug.LogError($"Button does not activate anything");
+        }
+        else {
+            foreach (var obj in objectsToActivateWithButton) {
+                var comp = obj.GetComponentInChildren<ActivateByPressurePlate>();
+                if (comp != null) {
+                    activatedByPressurePlate.Add(comp);
+                }
+            }
+
+            if (!activatedByPressurePlate.Any()) {
+                Debug.LogError($"Button does not activate anything");
+            }
+            else {
+                isPermanentPress = activatedByPressurePlate.First().isPermanentlyActivated;
+            }
+        }
+
+        foreach (var thingToActivate in activatedByPressurePlate) {
+            if (thingToActivate.isPermanentlyActivated != isPermanentPress) {
+                Debug.LogError($"All things activated by this button must have the same isPermanentlyActivated value");
+                return;
+            }
+
+            thingToActivate.AddPressurePlateThatActivatesThis(this);
+        }
+
+        var wires = GetComponentsInChildren<Wire>();
+        wiresToActivate = wires.ToList();
+
+        if (!wiresToActivate.Any()) {
+            Debug.LogError($"A button does not have any wires. Add wires as children of the button");
+        }
+    }
+
+    private void FindOtherButtonsThatActivateTheSameObjects() { 
+        foreach (var obj in activatedByPressurePlate) {
+            otherButtonsThatActivateTheSameObjects.AddRange(obj.pressurePlatesThatActivateThis);
+        }
+
+        otherButtonsThatActivateTheSameObjects = otherButtonsThatActivateTheSameObjects.Distinct().ToList();
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -79,6 +135,11 @@ public class PressurePlate : MonoBehaviour {
         if (currentPressCount < numberOfObjectsRequired && isPressed) {
             UnPressButton();
         }
+
+        if (isPressed && isPermanentPress && !allPermanentButtonsHaveBeenPressedAtTheSameTime) {
+            allPermanentButtonsHaveBeenPressedAtTheSameTime = otherButtonsThatActivateTheSameObjects.All(x => x.isPressed);
+            PressButton();
+        }
     }
 
     private void PressButton() {
@@ -88,10 +149,22 @@ public class PressurePlate : MonoBehaviour {
         smallerCollider.SetActive(true);
 
         partToRecolour.material.color = pressedColour;
+
+        if (isPermanentPress && allPermanentButtonsHaveBeenPressedAtTheSameTime) {
+            if (textOnButton != null) {
+                textOnButton.gameObject.SetActive(false);
+            }
+
+            checkmark.SetActive(true);
+        }
+
+        foreach (var wire in wiresToActivate) {
+            wire.Activate();
+        }
     }
 
     private void UnPressButton() {
-        if (isPermanentPress) {
+        if (isPermanentPress && allPermanentButtonsHaveBeenPressedAtTheSameTime) {
             return;
         }
 
@@ -100,6 +173,18 @@ public class PressurePlate : MonoBehaviour {
         fullCollider.SetActive(true);
         smallerCollider.SetActive(false);
         partToRecolour.material.color = notActivatedColour;
+
+        if (isPermanentPress) {
+            if (textOnButton != null) {
+                textOnButton.gameObject.SetActive(true);
+            }
+
+            checkmark.SetActive(false);
+        }
+
+        foreach (var wire in wiresToActivate) {
+            wire.Deactivate();
+        }
     }
 
     private void Update() {
