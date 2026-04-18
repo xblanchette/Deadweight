@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ActivateByPressurePlate : MonoBehaviour {
 
+    public AudioSource audioSource;
     public bool isPermanentlyActivated = true;
 
     public Transform pointA;
@@ -41,6 +42,7 @@ public class ActivateByPressurePlate : MonoBehaviour {
         currentTargetPosition = allButtonsPressed ? pointB.position : pointA.position;
 
         if (currentTargetPosition != previousTargetPosition) {
+            SoundManager.instance.PlaySound(audioSource);
             t = 0;
         }
 
