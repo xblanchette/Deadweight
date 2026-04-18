@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 3395161048986218435}
   - component: {fileID: 3410153543796735486}
   - component: {fileID: 5768439439432617518}
+  - component: {fileID: 8358906229872746223}
   - component: {fileID: 4197008102493285077}
   - component: {fileID: 5788769405944430144}
   - component: {fileID: 3267586150934066557}
@@ -249,6 +250,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &8358906229872746223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7781112685787836671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b53eedbc4337b7478f5fdbc567b9822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathScreen: {fileID: 0}
 --- !u!114 &4197008102493285077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +311,7 @@ MonoBehaviour:
   deadzone: 0.15
   normalizeMoveInput: 1
   cameraOffset: {x: -7, y: 10, z: -9}
+  isCarryingSomething: 0
 --- !u!114 &3267586150934066557
 MonoBehaviour:
   m_ObjectHideFlags: 0
