@@ -380,7 +380,9 @@ PrefabInstance:
       propertyPath: dispelRadius
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1702386618080964090, guid: 594114134f58ad740aa264b14a2214b9, type: 3}
+    - {fileID: 2042848373746026102, guid: 594114134f58ad740aa264b14a2214b9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
