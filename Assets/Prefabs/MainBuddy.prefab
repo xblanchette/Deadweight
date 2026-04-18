@@ -208,7 +208,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.55233574
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -707,6 +707,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1664083765829960058, guid: 01e74c6017c841c479fa0850613a5e2e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2805235894200426007}
+    - targetCorrespondingSourceObject: {fileID: 1664083765829960058, guid: 01e74c6017c841c479fa0850613a5e2e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6979073534133385243}
     - targetCorrespondingSourceObject: {fileID: -7143064857610932893, guid: 01e74c6017c841c479fa0850613a5e2e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3462486782924129810}
@@ -1812,6 +1815,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6979073534133385243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7504924940227622377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e8304aeb693b149a75f5b0187b716b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  bloodTrail: {fileID: 0}
 --- !u!1 &8358597310199597506 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 01e74c6017c841c479fa0850613a5e2e, type: 3}

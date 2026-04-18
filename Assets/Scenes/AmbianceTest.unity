@@ -117533,6 +117533,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 546703054773919553, guid: 0a95f3ed934ce824a8ec4f566a5ac090, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477607881968252150, guid: 0a95f3ed934ce824a8ec4f566a5ac090, type: 3}
+      propertyPath: dispelRadius
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8358597310199597506, guid: 0a95f3ed934ce824a8ec4f566a5ac090, type: 3}
       propertyPath: m_Name
       value: MainBuddy
