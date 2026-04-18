@@ -4996,16 +4996,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26dad7e49724fa48b7956105664c18b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 3
+  maxSpeed: 1
   acceleration: 8
   detectionRadius: 15
   lingerDuration: 3
   repulsionWeight: 5
   dispelVFX: {fileID: 0}
-  separationRadius: 2
-  separationWeight: 2
-  dispelVFX: {fileID: 2350855168524139345}
-  visual: {fileID: 6199141891745659128}
 --- !u!114 &7002550931379695458
 MonoBehaviour:
   m_ObjectHideFlags: 0
