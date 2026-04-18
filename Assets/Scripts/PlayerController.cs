@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
     public float deadzone = 0.15f;
     public bool normalizeMoveInput = true;
     public Vector3 cameraOffset;
+    public InputSystem_Actions playerControls;
+
 
     [HideInInspector]
     public bool isCarryingSomething = false;
@@ -24,20 +26,20 @@ public class PlayerController : MonoBehaviour {
 
     private Camera mainCamera;
     private PlayerInput playerInput;
-    private InputSystem_Actions playerControls;
 
     private Vector2 moveInput;
 
-    private void Awake() {
+    private void Awake()
+    {
         playerInput = GetComponent<PlayerInput>();
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
-
         virtualInputForward = transform.forward;
+        playerControls = new InputSystem_Actions();
     }
 
-    private void Start() {
-        playerControls = new();
+    private void Start()
+    {
         SetPlayerMap();
     }
 
