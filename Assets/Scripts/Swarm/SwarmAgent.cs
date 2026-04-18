@@ -53,6 +53,7 @@ public class SwarmAgent : MonoBehaviour
         nav.angularSpeed = 360f;
         nav.autoBraking = false;
         agentRenderer = GetComponentInChildren<Renderer>();
+        agentCollider = GetComponentInChildren<Collider>();
     }
 
     void Update()
@@ -172,6 +173,7 @@ public class SwarmAgent : MonoBehaviour
     }
 
     // ── dispel ─────────────────────────────────────────────────────────────
+    private Collider agentCollider;
 
     void CheckDispelZones()
     {
@@ -192,14 +194,18 @@ public class SwarmAgent : MonoBehaviour
         {
             isDispelled = true;
             if (agentRenderer != null) agentRenderer.enabled = false;
+            if (agentCollider != null) agentCollider.enabled = false;
             if (dispelVFX != null) dispelVFX.Play();
         }
         else if (!insideAnyDispelZone && isDispelled)
         {
             isDispelled = false;
             if (agentRenderer != null) agentRenderer.enabled = true;
+            if (agentCollider != null) agentCollider.enabled = true;
         }
     }
+
+    public bool IsDispelled => isDispelled;
 
     // ── public API ─────────────────────────────────────────────────────────
 
