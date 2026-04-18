@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -7,9 +8,13 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class KillPlane : MonoBehaviour
 {
+
+    PlayerHealth playerHealthInScene;
+
     void Awake()
     {
         GetComponent<Collider>().isTrigger = true;
+        playerHealthInScene = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None).FirstOrDefault();
     }
 
     void OnTriggerEnter(Collider other)
@@ -17,5 +22,11 @@ public class KillPlane : MonoBehaviour
         PlayerHealth health = other.GetComponent<PlayerHealth>();
         if (health != null)
             health.Die();
+
+        // If the buddy dies, you also die
+        var buddy = other.gameObject.GetComponentInParent<BuddyRagdoll>();
+        if (buddy != null && playerHealthInScene != null) {
+            playerHealthInScene.Die();
+        }
     }
 }

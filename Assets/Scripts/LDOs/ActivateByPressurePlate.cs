@@ -18,6 +18,7 @@ public class ActivateByPressurePlate : MonoBehaviour {
     private Vector3 previousTargetPosition;
 
     private float t = 0;
+    private bool manuallyStarted = false;
 
     private void Start() {
         currentTargetPosition = pointA.position;
@@ -32,12 +33,20 @@ public class ActivateByPressurePlate : MonoBehaviour {
         pressurePlatesThatActivateThis.Add(plate);
     }
 
+    public void ActivateObject() {
+        manuallyStarted = true;
+    }
+
     private void FixedUpdate() {
-        if (!pressurePlatesThatActivateThis.Any()) {
+        if ((!pressurePlatesThatActivateThis.Any()) && (!manuallyStarted)) {
             return;
         }
 
         var allButtonsPressed = pressurePlatesThatActivateThis.All(x => x.isPressed);
+
+        if (manuallyStarted) {
+            allButtonsPressed = true;
+        }
 
         currentTargetPosition = allButtonsPressed ? pointB.position : pointA.position;
 
