@@ -159,14 +159,12 @@ public class PlayerController : MonoBehaviour {
         {
             moveInput = Vector2.zero;
             playerControls.Player.Move.Disable();
-            playerControls.Player.Interact.Disable();
 
             visualAnimator.SetBool("isDragging", true);
             yield return new WaitForSeconds(time);
             visualAnimator.SetBool("isDragging", false);
             GetComponent<Animator>().enabled = false;
 
-            playerControls.Player.Interact.Enable();
             playerControls.Player.Move.Enable();
         }
     }
