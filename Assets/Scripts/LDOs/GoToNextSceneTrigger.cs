@@ -12,6 +12,8 @@ public class GoToNextSceneTrigger : MonoBehaviour {
         }
 
         if (player.isCarryingSomething) {
+            GameManager.useCheckpoint = false;
+            GameManager.checkpointsTouched.Clear();
             SceneManager.LoadScene(sceneToLoad);
             return;
         }
