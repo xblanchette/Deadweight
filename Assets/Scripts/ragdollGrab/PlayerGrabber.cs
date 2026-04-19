@@ -144,6 +144,8 @@ public class PlayerGrabber : MonoBehaviour
 
         heldBuddy.OnGrabbed();
 
+        playerController.visualAnimator.SetBool("isDragging", true);
+
         // Wait one frame isn't possible here but joint is created after OnGrabbed
         // which sets bones to non-kinematic, so order is correct
         CreateJoint();
@@ -212,6 +214,7 @@ public class PlayerGrabber : MonoBehaviour
         heldBuddy = null;
         heldAnchor = null;
         activeJoint = null;
+        playerController.visualAnimator.SetBool("isDragging", false);
         playerController.isCarryingSomething = false;
     }
 
