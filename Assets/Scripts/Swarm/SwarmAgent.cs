@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -41,6 +43,9 @@ public class SwarmAgent : MonoBehaviour
     private float lingerTimer = 0f;
     private SwarmAttractor playerAttractor;
 
+    private List<SwarmAttractor> swarmAttractors = new();
+    private List<SwarmRepulsor> swarmRepulsors = new();
+
     // ── dispel ─────────────────────────────────────────────────────────────
     private bool isDispelled = false;
     private Renderer agentRenderer;
@@ -60,6 +65,11 @@ public class SwarmAgent : MonoBehaviour
         // Desync zombies sounds
 
         Invoke("WhisperSound", Random.Range(0f, 2f));
+    }
+
+    private void Start() {
+        swarmAttractors = FindObjectsByType<SwarmAttractor>(FindObjectsSortMode.None).ToList();
+        swarmRepulsors = FindObjectsByType<SwarmRepulsor>(FindObjectsSortMode.None).ToList();
     }
 
     void Update()
@@ -92,7 +102,7 @@ public class SwarmAgent : MonoBehaviour
         Vector3 desired = transform.position;
 
         // ── 1. Attraction ──────────────────────────────────────────────────
-        SwarmAttractor[] attractors = FindObjectsByType<SwarmAttractor>(FindObjectsSortMode.None);
+        var attractors = swarmAttractors;
         foreach (SwarmAttractor a in attractors)
         {
             Vector3 toTarget = a.transform.position - transform.position;
@@ -108,7 +118,7 @@ public class SwarmAgent : MonoBehaviour
         }
 
         // ── 2. Repulsion — offset destination away from repulsors ──────────
-        SwarmRepulsor[] repulsors = FindObjectsByType<SwarmRepulsor>(FindObjectsSortMode.None);
+        var repulsors = swarmRepulsors;
         foreach (SwarmRepulsor r in repulsors)
         {
             Vector3 away = transform.position - r.transform.position;
@@ -182,6 +192,7 @@ public class SwarmAgent : MonoBehaviour
     {
         SoundManager.instance.PlaySound(audioSource);
     }
+
     // ── dispel ─────────────────────────────────────────────────────────────
     private Collider agentCollider;
 
@@ -225,6 +236,7 @@ public class SwarmAgent : MonoBehaviour
         state = AgentState.Idle;
         nav.ResetPath();
         nav.velocity = Vector3.zero;
+        nav.speed = 0;
     }
 
 #if UNITY_EDITOR

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject globalVolume;
     public GameObject mainCanvas;
+    public GameObject objectToActivateWhenBuddyLeftBehind;
 
     private void Awake() {
         if (instance == null) {
@@ -18,11 +19,19 @@ public class GameManager : MonoBehaviour
             else {
                 globalVolume.SetActive(true);
             }
+
+            Application.targetFrameRate = 60;
+
+            objectToActivateWhenBuddyLeftBehind.SetActive(false);
         }
     }
 
     public void SetCanvasVisibility(bool visible) {
         mainCanvas.SetActive(visible);
+    }
+
+    public void PlayerForgotBuddy() {
+        objectToActivateWhenBuddyLeftBehind.SetActive(true);
     }
 
     public static int LayermaskToLayer(LayerMask layerMask) {

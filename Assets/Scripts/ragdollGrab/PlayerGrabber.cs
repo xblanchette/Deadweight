@@ -148,12 +148,12 @@ public class PlayerGrabber : MonoBehaviour
         // which sets bones to non-kinematic, so order is correct
         CreateJoint();
 
-        SetLayerOfAllObjects(grabLayer, heldBuddy.gameObject);
+        SetLayerOfAllObjects("BuddyWhenGrabbed", heldBuddy.gameObject);
     }
 
-    private void SetLayerOfAllObjects(LayerMask layer, GameObject objectToModify) {
+    private void SetLayerOfAllObjects(string layer, GameObject objectToModify) {
         var children = objectToModify.GetComponentsInChildren<Transform>();
-        var layerInt = GameManager.LayermaskToLayer(layer);
+        var layerInt = LayerMask.NameToLayer(layer);
 
         foreach (var child in children) {
             child.gameObject.layer = layerInt;
@@ -207,7 +207,7 @@ public class PlayerGrabber : MonoBehaviour
         if (heldBuddy != null)
             heldBuddy.OnReleased();
 
-        SetLayerOfAllObjects(notGrabbedLayer, heldBuddy.gameObject);
+        SetLayerOfAllObjects("BuddyNotGrabbed", heldBuddy.gameObject);
 
         heldBuddy = null;
         heldAnchor = null;
