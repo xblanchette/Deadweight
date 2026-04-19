@@ -338,7 +338,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -531,6 +531,12 @@ MonoBehaviour:
   castDistance: 1.5
   castRadius: 1
   grabLayer:
+    serializedVersion: 2
+    m_Bits: 3072
+  notGrabbedLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  grabbedLayer:
     serializedVersion: 2
     m_Bits: 1024
   gripProxy: {fileID: 9047220282900998472}
