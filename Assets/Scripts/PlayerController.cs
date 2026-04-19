@@ -139,8 +139,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     public IEnumerator Delay() {
+        visualAnimator.SetBool("isDragging", true);
         yield return new WaitForSeconds(time);
-        //animator.enabled = false;
+        visualAnimator.SetBool("isDragging", false);
+        GetComponent<Animator>().enabled = false;
     }
 
 }
