@@ -52,7 +52,7 @@ public class Checkpoint : MonoBehaviour
             return;
         }
 
-        Debug.Log($"touched checkpoint: {checkpointName}");
+        GameManager.useCheckpoint = true;
         GameManager.checkpointsTouched.Add(checkpointName);
         GameManager.respawnLocation = playerRespawn.transform.position;
         GameManager.buddyRespawnLocation = buddyRespawn.transform.position;
