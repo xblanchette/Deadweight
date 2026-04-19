@@ -94,6 +94,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2646921102755128146, guid: 0a95f3ed934ce824a8ec4f566a5ac090, type: 3}
+      propertyPath: partThatMoves
+      value: 
+      objectReference: {fileID: 8425348034165327254}
     - target: {fileID: 4987434367837284220, guid: 0a95f3ed934ce824a8ec4f566a5ac090, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00000008964116
@@ -112,15 +116,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8697686024400917368, guid: 0a95f3ed934ce824a8ec4f566a5ac090, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.93
+      value: 4.7499194
       objectReference: {fileID: 0}
     - target: {fileID: 8697686024400917368, guid: 0a95f3ed934ce824a8ec4f566a5ac090, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 8697686024400917368, guid: 0a95f3ed934ce824a8ec4f566a5ac090, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -26.75
+      value: -27.508247
       objectReference: {fileID: 0}
     - target: {fileID: 8697686024400917368, guid: 0a95f3ed934ce824a8ec4f566a5ac090, type: 3}
       propertyPath: m_LocalRotation.w
@@ -194,3 +198,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &8425348034165327254 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7504924940227622377, guid: 0a95f3ed934ce824a8ec4f566a5ac090, type: 3}
+  m_PrefabInstance: {fileID: 2074470705684639871}
+  m_PrefabAsset: {fileID: 0}

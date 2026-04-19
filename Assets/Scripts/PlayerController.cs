@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour {
         virtualInputForward = transform.forward;
         playerControls = new InputSystem_Actions();
         grabIndicator = FindObjectsByType<GrabIndicator>(FindObjectsSortMode.None).FirstOrDefault().gameObject;
-        buddy = FindObjectsByType<BuddyRagdoll>(FindObjectsSortMode.None).FirstOrDefault().gameObject;
+        buddy = FindObjectsByType<BuddyRagdoll>(FindObjectsSortMode.None).FirstOrDefault().partThatMoves;
     }
 
     private void Start() {
