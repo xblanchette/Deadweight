@@ -62,6 +62,7 @@ public class SwarmAgent : MonoBehaviour
         agentRenderer = GetComponentInChildren<Renderer>();
         agentCollider = GetComponentInChildren<Collider>();
 
+        monsterAnimator.Play(0, -1, Random.Range(0f, 1f));
         // Desync zombies sounds
         Invoke(nameof(WhisperSound), Random.Range(0f, 2f));
     }
