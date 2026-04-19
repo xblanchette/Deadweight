@@ -57,8 +57,8 @@ public class PressurePlate : MonoBehaviour {
         }
         else {
             foreach (var obj in objectsToActivateWithButton) {
-                var comp = obj.GetComponentInChildren<ActivateByPressurePlate>();
-                if (comp != null) {
+                var comps = obj.GetComponentsInChildren<ActivateByPressurePlate>();
+                foreach (var comp in comps) {
                     activatedByPressurePlate.Add(comp);
                 }
             }
@@ -88,7 +88,7 @@ public class PressurePlate : MonoBehaviour {
         }
     }
 
-    private void FindOtherButtonsThatActivateTheSameObjects() { 
+    private void FindOtherButtonsThatActivateTheSameObjects() {
         foreach (var obj in activatedByPressurePlate) {
             otherButtonsThatActivateTheSameObjects.AddRange(obj.pressurePlatesThatActivateThis);
         }
@@ -146,20 +146,17 @@ public class PressurePlate : MonoBehaviour {
 
         if (currentPressCount >= numberOfObjectsRequired && !isPressed) {
             PressButton();
-        } 
+        }
 
         if (currentPressCount < numberOfObjectsRequired && isPressed) {
             UnPressButton();
         }
 
-        if (isPressed && isPermanentPress && !allPermanentButtonsHaveBeenPressedAtTheSameTime)
-        {
+        if (isPressed && isPermanentPress && !allPermanentButtonsHaveBeenPressedAtTheSameTime) {
             allPermanentButtonsHaveBeenPressedAtTheSameTime = otherButtonsThatActivateTheSameObjects.All(x => x.isPressed);
-            if (allPermanentButtonsHaveBeenPressedAtTheSameTime)
-            {
+            if (allPermanentButtonsHaveBeenPressedAtTheSameTime) {
                 PressButton();
             }
-            
         }
     }
 
