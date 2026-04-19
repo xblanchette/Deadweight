@@ -34,6 +34,7 @@ public class SwarmAgent : MonoBehaviour
     [Header("Dispel")]
     [Tooltip("VFX played once when the agent enters a dispel zone.")]
     public ParticleSystem dispelVFX;
+    public Animator monsterAnimator;
 
     // ── state ──────────────────────────────────────────────────────────────
     private enum AgentState { Idle, Chasing, Lingering }
@@ -233,6 +234,7 @@ public class SwarmAgent : MonoBehaviour
     /// <summary>Forces the agent into Idle — called on player death.</summary>
     public void ForceIdle()
     {
+        monsterAnimator.SetBool("IdleMonster", true);
         state = AgentState.Idle;
         nav.ResetPath();
         nav.velocity = Vector3.zero;
