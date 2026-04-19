@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour {
 
     public AudioSource walkSound;
-    public bool isWalking=false;
+    public bool isWalking = false;
 
     public float normalMoveSpeed = 6.0f;
     public float carryingMoveSpeed = 4.0f;
@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour {
     private PlayerInput playerInput;
 
     private Vector2 moveInput;
+    private GameObject grabIndicator;
 
     private void Awake() {
         playerInput = GetComponent<PlayerInput>();
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         virtualInputForward = transform.forward;
         playerControls = new InputSystem_Actions();
+        grabIndicator = FindObjectsByType<GrabIndicator>(FindObjectsSortMode.None).FirstOrDefault().gameObject;
     }
 
     private void Start() {
@@ -64,6 +66,10 @@ public class PlayerController : MonoBehaviour {
     private void FixedUpdate() {
         HandleMovement();
         MoveCamera();
+
+        if (grabIndicator != null) {
+            grabIndicator.SetActive(!isCarryingSomething);
+        }
     }
 
     private void HandleMovement() {
@@ -106,13 +112,11 @@ public class PlayerController : MonoBehaviour {
 
         var moveVector = (isCarryingSomething ? -1 : 1) * targetSpeed * transform.forward;
         rb.linearVelocity = new Vector3(moveVector.x, rb.linearVelocity.y, moveVector.z);
-        if (!isWalking)
-        {
+
+        if (!isWalking) {
             isWalking = true;
             SoundManager.instance.UnPauseSound(walkSound);
         }
-
-
     }
 
     private void NoMovement() {
