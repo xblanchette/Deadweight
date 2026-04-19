@@ -4485,9 +4485,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2334539416352820922, guid: 2c8794a4af621914b8ac2b99c3377a34, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b5735871c304cab429818d861c979b09, type: 2}
     - target: {fileID: 919132149155446097, guid: 2c8794a4af621914b8ac2b99c3377a34, type: 3}
       propertyPath: m_Name
       value: M_plaque_pression
+      objectReference: {fileID: 0}
+    - target: {fileID: 1178071529441726976, guid: 2c8794a4af621914b8ac2b99c3377a34, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
