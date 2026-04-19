@@ -57639,7 +57639,7 @@ PrefabInstance:
     - target: {fileID: 6456206746560367319, guid: 0e26e81953832fd4a96f95a51fdf30ae, type: 3}
       propertyPath: globalVolume
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1218629606}
     - target: {fileID: 8574521415889487093, guid: 0e26e81953832fd4a96f95a51fdf30ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -76684,6 +76684,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3277c21574fc3d4c9ea0579185316a1, type: 3}
+--- !u!1 &1218629606 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 969016478437898659, guid: e3277c21574fc3d4c9ea0579185316a1, type: 3}
+  m_PrefabInstance: {fileID: 1218629605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1221939481
 PrefabInstance:
   m_ObjectHideFlags: 0
