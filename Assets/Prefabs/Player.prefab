@@ -551,6 +551,7 @@ MonoBehaviour:
   deadzone: 0.15
   normalizeMoveInput: 1
   cameraOffset: {x: -12, y: 10, z: -12}
+  rangeToDisplayPrompt: 4.5
   isCarryingSomething: 0
 --- !u!114 &3267586150934066557
 MonoBehaviour:
