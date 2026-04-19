@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -139,10 +140,14 @@ public class PlayerController : MonoBehaviour {
     }
 
     public IEnumerator Delay() {
-        visualAnimator.SetBool("isDragging", true);
-        yield return new WaitForSeconds(time);
-        visualAnimator.SetBool("isDragging", false);
-        GetComponent<Animator>().enabled = false;
+        if (SceneManager.GetActiveScene().name == "Tuto")
+        {
+            visualAnimator.SetBool("isDragging", true);
+            yield return new WaitForSeconds(time);
+            visualAnimator.SetBool("isDragging", false);
+            GetComponent<Animator>().enabled = false;
+        }
+
     }
 
 }
