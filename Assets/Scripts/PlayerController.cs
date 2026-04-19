@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
     public float deadzone = 0.15f;
     public bool normalizeMoveInput = true;
     public Vector3 cameraOffset;
+    public float rangeToDisplayPrompt = 6;
 
     [HideInInspector]
     public bool isCarryingSomething = false;
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 
     private Camera mainCamera;
     private PlayerInput playerInput;
+    private GameObject buddy;
 
     private Vector2 moveInput;
     private GameObject grabIndicator;
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour {
         virtualInputForward = transform.forward;
         playerControls = new InputSystem_Actions();
         grabIndicator = FindObjectsByType<GrabIndicator>(FindObjectsSortMode.None).FirstOrDefault().gameObject;
+        buddy = FindObjectsByType<BuddyRagdoll>(FindObjectsSortMode.None).FirstOrDefault().gameObject;
     }
 
     private void Start() {
@@ -74,8 +77,19 @@ public class PlayerController : MonoBehaviour {
         HandleMovement();
         MoveCamera();
 
+
         if (grabIndicator != null) {
-            grabIndicator.SetActive(!isCarryingSomething);
+            grabIndicator.SetActive(false);
+
+            if (isCarryingSomething) {
+                return;
+            }
+
+            var distanceToBuddy = Vector3.Distance(transform.position, buddy.transform.position);
+
+            if (distanceToBuddy <= rangeToDisplayPrompt) {
+                grabIndicator.SetActive(true);
+            }
         }
     }
 
