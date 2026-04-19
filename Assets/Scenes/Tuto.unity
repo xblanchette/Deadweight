@@ -74538,10 +74538,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Death screen
       objectReference: {fileID: 0}
-    - target: {fileID: 8087527622884079240, guid: cb3374df5169b0e4ca6cbebdeba3f73f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
