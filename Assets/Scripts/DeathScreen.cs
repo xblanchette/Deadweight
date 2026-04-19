@@ -8,8 +8,7 @@ using UnityEngine.UI;
 /// Attach to the Death Screen Canvas GameObject.
 /// Handles fade in, button focus for controller, and scene reload.
 /// </summary>
-public class DeathScreen : MonoBehaviour
-{
+public class DeathScreen : MonoBehaviour {
     [Header("References")]
     [Tooltip("The CanvasGroup on the death screen panel for fading.")]
     public CanvasGroup canvasGroup;
@@ -32,13 +31,11 @@ public class DeathScreen : MonoBehaviour
 
     private bool startHasBeenCalled = false;
 
-    void Awake()
-    {
+    void Awake() {
 
     }
 
-    void Start()
-    {
+    void Start() {
         StartDeathScreen();
     }
 
@@ -61,19 +58,16 @@ public class DeathScreen : MonoBehaviour
     }
 
     /// <summary>Called by PlayerHealth.Die() to show the death screen.</summary>
-    public void Show()
-    {
+    public void Show() {
         gameObject.SetActive(true);
         StartCoroutine(FadeIn());
     }
 
-    private IEnumerator FadeIn()
-    {
+    private IEnumerator FadeIn() {
         float elapsed = 0f;
         canvasGroup.alpha = 0f;
 
-        while (elapsed < fadeDuration)
-        {
+        while (elapsed < fadeDuration) {
             elapsed += Time.unscaledDeltaTime;
             canvasGroup.alpha = Mathf.Clamp01(elapsed / fadeDuration);
             yield return null;
@@ -87,33 +81,27 @@ public class DeathScreen : MonoBehaviour
         SelectDefaultButton();
     }
 
-    void Update()
-    {
+    void Update() {
         // Edge case: if controller loses focus (e.g. mouse click), reselect default button
         if (canvasGroup.interactable && EventSystem.current != null &&
-            EventSystem.current.currentSelectedGameObject == null)
-        {
+            EventSystem.current.currentSelectedGameObject == null) {
             SelectDefaultButton();
         }
     }
 
-    void SelectDefaultButton()
-    {
+    void SelectDefaultButton() {
         if (EventSystem.current != null) {
             EventSystem.current.SetSelectedGameObject(null);
         }
         firstSelectedButton.Select();
     }
 
-    void OnRestart()
-    {
+    void OnRestart() {
         if (playerHealth != null)
             playerHealth.Restart();
     }
 
-    void OnMainMenu()
-    {
-        // Placeholder — wire up main menu scene name here when ready
-        Debug.Log("Main Menu placeholder — scene not yet assigned.");
+    void OnMainMenu() {
+        SceneManager.LoadScene("Main Menu");
     }
 }
