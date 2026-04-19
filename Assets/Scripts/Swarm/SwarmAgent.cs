@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,9 +9,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class SwarmAgent : MonoBehaviour
 {
-    [Header("Audio")]
-    public AudioSource audioSource;
-
     [Header("Movement")]
     [Tooltip("Maximum travel speed.")]
     public float maxSpeed = 5f;
@@ -33,6 +28,9 @@ public class SwarmAgent : MonoBehaviour
     [Tooltip("How strongly the agent is steered away from Repulsor prefabs.")]
     public float repulsionWeight = 2f;
 
+    [Tooltip("Speed override when inside a repulsion radius. Set to 0 to use maxSpeed.")]
+    public float repulsionSpeed = 8f;
+
     [Header("Dispel")]
     [Tooltip("VFX played once when the agent enters a dispel zone.")]
     public ParticleSystem dispelVFX;
@@ -42,9 +40,6 @@ public class SwarmAgent : MonoBehaviour
     private AgentState state = AgentState.Idle;
     private float lingerTimer = 0f;
     private SwarmAttractor playerAttractor;
-
-    private List<SwarmAttractor> swarmAttractors = new();
-    private List<SwarmRepulsor> swarmRepulsors = new();
 
     // ── dispel ─────────────────────────────────────────────────────────────
     private bool isDispelled = false;
@@ -62,14 +57,6 @@ public class SwarmAgent : MonoBehaviour
         nav.autoBraking = false;
         agentRenderer = GetComponentInChildren<Renderer>();
         agentCollider = GetComponentInChildren<Collider>();
-        // Desync zombies sounds
-
-        Invoke("WhisperSound", Random.Range(0f, 2f));
-    }
-
-    private void Start() {
-        swarmAttractors = FindObjectsByType<SwarmAttractor>(FindObjectsSortMode.None).ToList();
-        swarmRepulsors = FindObjectsByType<SwarmRepulsor>(FindObjectsSortMode.None).ToList();
     }
 
     void Update()
@@ -102,7 +89,7 @@ public class SwarmAgent : MonoBehaviour
         Vector3 desired = transform.position;
 
         // ── 1. Attraction ──────────────────────────────────────────────────
-        var attractors = swarmAttractors;
+        SwarmAttractor[] attractors = FindObjectsByType<SwarmAttractor>(FindObjectsSortMode.None);
         foreach (SwarmAttractor a in attractors)
         {
             Vector3 toTarget = a.transform.position - transform.position;
@@ -117,8 +104,10 @@ public class SwarmAgent : MonoBehaviour
             desired += toTarget.normalized;
         }
 
-        // ── 2. Repulsion — offset destination away from repulsors ──────────
-        var repulsors = swarmRepulsors;
+        // ── 2. Repulsion — set destination to a flee point away from repulsors ──
+        bool insideRepulsion = false;
+        Vector3 repulsionOffset = Vector3.zero;
+        SwarmRepulsor[] repulsors = FindObjectsByType<SwarmRepulsor>(FindObjectsSortMode.None);
         foreach (SwarmRepulsor r in repulsors)
         {
             Vector3 away = transform.position - r.transform.position;
@@ -127,9 +116,25 @@ public class SwarmAgent : MonoBehaviour
             if (dist < r.repulsionRadius && dist > 0.001f)
             {
                 float strength = (r.repulsionRadius - dist) / r.repulsionRadius;
-                desired += away.normalized * strength * repulsionWeight;
+                repulsionOffset += away.normalized * strength;
+                insideRepulsion = true;
             }
         }
+
+        if (insideRepulsion)
+        {
+            // Override destination entirely — flee to a point far behind the agent
+            Vector3 fleeTarget = transform.position + repulsionOffset.normalized * repulsionWeight * 10f;
+
+            // Clamp to valid NavMesh position so the agent doesn't ignore it
+            if (NavMesh.SamplePosition(fleeTarget, out NavMeshHit hit, repulsionWeight * 10f, NavMesh.AllAreas))
+                desired = hit.position;
+            else
+                desired = transform.position + repulsionOffset.normalized * 2f; // fallback close point
+        }
+
+        // Switch speed based on whether we're being repulsed
+        nav.speed = insideRepulsion && repulsionSpeed > 0f ? repulsionSpeed : maxSpeed;
 
         return desired;
     }
@@ -188,11 +193,6 @@ public class SwarmAgent : MonoBehaviour
         }
     }
 
-    public void WhisperSound()
-    {
-        SoundManager.instance.PlaySound(audioSource);
-    }
-
     // ── dispel ─────────────────────────────────────────────────────────────
     private Collider agentCollider;
 
@@ -236,7 +236,6 @@ public class SwarmAgent : MonoBehaviour
         state = AgentState.Idle;
         nav.ResetPath();
         nav.velocity = Vector3.zero;
-        nav.speed = 0;
     }
 
 #if UNITY_EDITOR
