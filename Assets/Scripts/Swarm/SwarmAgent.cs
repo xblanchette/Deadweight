@@ -9,6 +9,9 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class SwarmAgent : MonoBehaviour
 {
+    [Header("Audio")]
+    public AudioSource audioSource;
+
     [Header("Movement")]
     [Tooltip("Maximum travel speed.")]
     public float maxSpeed = 5f;
@@ -58,6 +61,9 @@ public class SwarmAgent : MonoBehaviour
         nav.autoBraking = false;
         agentRenderer = GetComponentInChildren<Renderer>();
         agentCollider = GetComponentInChildren<Collider>();
+
+        // Desync zombies sounds
+        Invoke(nameof(WhisperSound), Random.Range(0f, 2f));
     }
 
     void Update()
@@ -192,6 +198,10 @@ public class SwarmAgent : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void WhisperSound() {
+        SoundManager.instance.PlaySound(audioSource);
     }
 
     // ── dispel ─────────────────────────────────────────────────────────────

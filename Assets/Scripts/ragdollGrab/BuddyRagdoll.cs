@@ -14,6 +14,8 @@ public class BuddyRagdoll : MonoBehaviour
     [Tooltip("Assign the blood trail ParticleSystem here (placeholder).")]
     public TrailRenderer bloodTrail;
 
+    public GameObject partThatMoves;
+
     // ── state ──────────────────────────────────────────────────────────────
     public bool IsHeld { get; private set; }
 
