@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
             objectToActivateWhenBuddyLeftBehind.SetActive(false);
 
             GoToCheckpoint();
-            useCheckpoint = true;
         }
     }
 
