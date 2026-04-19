@@ -12,17 +12,18 @@ public class ActivateDoorsTrigger : MonoBehaviour
         if (hasActivated) {
             return;
         }
-        hasActivated = true;
 
         var player = other.gameObject.GetComponent<PlayerController>();
         if (player == null) {
             return;
         }
 
-        foreach (var obj in objectsToActivate) {
-            var comp = obj.GetComponentInChildren<ActivateByPressurePlate>();
+        hasActivated = true;
 
-            if (comp != null) {
+        foreach (var obj in objectsToActivate) {
+            var comps = obj.GetComponentsInChildren<ActivateByPressurePlate>();
+
+            foreach (var comp in comps) {
                 comp.ActivateObject();
             }
         }
