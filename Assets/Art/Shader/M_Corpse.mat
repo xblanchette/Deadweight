@@ -53,9 +53,9 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _intensite_Fresnel: 0.72
+    - _intensite_Fresnel: 0.5
     - _opacity: 1
     m_Colors:
-    - _Color: {r: 0.18238991, g: 0.18238991, b: 0.18238991, a: 0}
+    - _Color: {r: 0.66981125, g: 0.7239405, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
