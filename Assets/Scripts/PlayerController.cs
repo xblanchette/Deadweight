@@ -153,15 +153,20 @@ public class PlayerController : MonoBehaviour {
         mainCamera.transform.position = transform.position + cameraOffset;
     }
 
-    public IEnumerator Delay() {
+    public IEnumerator Delay()
+    {
         if (SceneManager.GetActiveScene().name == "Tuto")
         {
+            moveInput = Vector2.zero;
+            playerControls.Player.Move.Disable();
+
             visualAnimator.SetBool("isDragging", true);
             yield return new WaitForSeconds(time);
             visualAnimator.SetBool("isDragging", false);
             GetComponent<Animator>().enabled = false;
-        }
 
+            playerControls.Player.Move.Enable();
+        }
     }
 
 }
