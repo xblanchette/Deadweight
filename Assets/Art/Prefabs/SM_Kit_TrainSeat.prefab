@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 79e39be53fcf97f4385d141f4281edde, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7f6cc4e73d681f74eb5152673a85023d, type: 2}
     - target: {fileID: 919132149155446097, guid: 79e39be53fcf97f4385d141f4281edde, type: 3}
       propertyPath: m_Name
       value: SM_Kit_TrainSeat
