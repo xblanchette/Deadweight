@@ -14,6 +14,10 @@ public class PlayerGrabber : MonoBehaviour
     [Tooltip("Layer mask for the SphereCast — set to your buddy/ragdoll layer.")]
     public LayerMask grabLayer;
 
+    public LayerMask notGrabbedLayer;
+
+    public LayerMask grabbedLayer;
+
     [Header("References")]
     [Tooltip("The GripProxy component (kinematic hand follower).")]
     public GripProxy gripProxy;
@@ -143,6 +147,17 @@ public class PlayerGrabber : MonoBehaviour
         // Wait one frame isn't possible here but joint is created after OnGrabbed
         // which sets bones to non-kinematic, so order is correct
         CreateJoint();
+
+        SetLayerOfAllObjects(grabLayer, heldBuddy.gameObject);
+    }
+
+    private void SetLayerOfAllObjects(LayerMask layer, GameObject objectToModify) {
+        var children = objectToModify.GetComponentsInChildren<Transform>();
+        var layerInt = GameManager.LayermaskToLayer(layer);
+
+        foreach (var child in children) {
+            child.gameObject.layer = layerInt;
+        }
     }
 
     void CreateJoint()
@@ -192,9 +207,12 @@ public class PlayerGrabber : MonoBehaviour
         if (heldBuddy != null)
             heldBuddy.OnReleased();
 
+        SetLayerOfAllObjects(notGrabbedLayer, heldBuddy.gameObject);
+
         heldBuddy = null;
         heldAnchor = null;
         activeJoint = null;
+        playerController.isCarryingSomething = false;
     }
 
     // ── auto drop if buddy drifts too far ─────────────────────────────────
