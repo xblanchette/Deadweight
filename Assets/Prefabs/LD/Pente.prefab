@@ -166,7 +166,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4465988822950944400, guid: ca675a3baf963614598859d3e0260dd5, type: 3}
       propertyPath: m_Name
-      value: Pente Variant
+      value: Pente
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465988822950944400, guid: ca675a3baf963614598859d3e0260dd5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5375228074676365512, guid: ca675a3baf963614598859d3e0260dd5, type: 3}
       propertyPath: m_LocalPosition.x
