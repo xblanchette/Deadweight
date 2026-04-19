@@ -19,6 +19,7 @@ public class ActivateByPressurePlate : MonoBehaviour {
 
     private float t = 0;
     private bool manuallyStarted = false;
+    private bool canPlaySound = false;
 
     private void Start() {
         currentTargetPosition = pointA.position;
@@ -27,6 +28,12 @@ public class ActivateByPressurePlate : MonoBehaviour {
 
         // The speed should not scale based on the travel distance
         moveSpeed /= distanceBetweenPoints;
+
+        Invoke(nameof(CanPlaySound), 1);
+    }
+
+    private void CanPlaySound() {
+        canPlaySound = true;
     }
 
     public void AddPressurePlateThatActivatesThis(PressurePlate plate) {
@@ -51,7 +58,9 @@ public class ActivateByPressurePlate : MonoBehaviour {
         currentTargetPosition = allButtonsPressed ? pointB.position : pointA.position;
 
         if (currentTargetPosition != previousTargetPosition) {
-            SoundManager.instance.PlaySound(audioSource);
+            if (canPlaySound) {
+                SoundManager.instance.PlaySound(audioSource);
+            }
             t = 0;
         }
 
