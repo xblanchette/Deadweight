@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3736766909110464976}
   m_Layer: 0
-  m_Name: Environnement
+  m_Name: Environnement_PressurePlateFirst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
