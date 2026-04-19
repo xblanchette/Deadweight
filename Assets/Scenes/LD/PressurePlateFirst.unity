@@ -18438,15 +18438,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1436450927467278513, guid: 0b73c75355af20c4297f56723fb24612, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.4359756
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1436450927467278513, guid: 0b73c75355af20c4297f56723fb24612, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.901303
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1436450927467278513, guid: 0b73c75355af20c4297f56723fb24612, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.652512
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1436450927467278513, guid: 0b73c75355af20c4297f56723fb24612, type: 3}
       propertyPath: m_LocalRotation.w
@@ -18482,13 +18482,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3037604477747836266, guid: 0b73c75355af20c4297f56723fb24612, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b73c75355af20c4297f56723fb24612, type: 3}
+--- !u!1 &354196107 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3037604477747836266, guid: 0b73c75355af20c4297f56723fb24612, type: 3}
+  m_PrefabInstance: {fileID: 354196106}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &355601787
 Mesh:
   m_ObjectHideFlags: 0
@@ -40851,6 +40856,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7579849050624233767, guid: 18c4c1f5cf71b3c4db72d9d1af226513, type: 3}
+      propertyPath: globalVolume
+      value: 
+      objectReference: {fileID: 354196107}
     - target: {fileID: 9221241004481212155, guid: 18c4c1f5cf71b3c4db72d9d1af226513, type: 3}
       propertyPath: m_Name
       value: Game Manager
