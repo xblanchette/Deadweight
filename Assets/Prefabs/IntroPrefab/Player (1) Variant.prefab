@@ -48,6 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3267586150934066557, guid: 1e9f9073f8e220e4aa7dec2182f93e55, type: 3}
+      propertyPath: grabLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267586150934066557, guid: 1e9f9073f8e220e4aa7dec2182f93e55, type: 3}
+      propertyPath: grabbedLayer.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267586150934066557, guid: 1e9f9073f8e220e4aa7dec2182f93e55, type: 3}
+      propertyPath: notGrabbedLayer.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5788769405944430144, guid: 1e9f9073f8e220e4aa7dec2182f93e55, type: 3}
       propertyPath: time
       value: 5
