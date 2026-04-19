@@ -9,11 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Josh.unity
+    path: Assets/Scenes/Menu Scenes/Main Menu.unity
+    guid: 461a8e7d72680c949b72a2a5bad44d41
+  - enabled: 1
+    path: Assets/Scenes/Tuto.unity
     guid: 4d3b786af3ce7b2498921837f7c40f75
   - enabled: 1
     path: Assets/Scenes/LD/PressurePlateFirst.unity
     guid: 0374ef2b01aa5e24eadd4094890dd296
+  - enabled: 1
+    path: Assets/Scenes/Menu Scenes/Win Scene.unity
+    guid: bd33d103618c5f04fa6bbb89de69dbe6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -8,6 +8,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour {
 
+    public Animator animator;
+    public float time;
+
     public AudioSource walkSound;
     public bool isWalking = false;
 
@@ -47,6 +50,7 @@ public class PlayerController : MonoBehaviour {
     private void Start() {
         SetPlayerMap();
         SoundManager.instance.PlaySound(walkSound);
+        StartCoroutine(Delay());
     }
 
     private void SetPlayerMap() {
@@ -127,6 +131,11 @@ public class PlayerController : MonoBehaviour {
 
     private void MoveCamera() {
         mainCamera.transform.position = transform.position + cameraOffset;
+    }
+
+    public IEnumerator Delay() {
+        yield return new WaitForSeconds(time);
+        animator.enabled = false;
     }
 
 }
