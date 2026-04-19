@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PressurePlate : MonoBehaviour {
 
+    public AudioSource audioSource;
+
     public List<ButtonPresserType> thingsThatCanActivateButton = new();
     public int numberOfObjectsRequired = 1;
 
@@ -14,6 +16,7 @@ public class PressurePlate : MonoBehaviour {
     public bool displayTextOnButton = true;
     public float pressedButtonYPos = -0.1f;
     public float buttonMoveLerpSpeed = 5;
+    public int materialIndex = 1;
 
     [Header("Object references")]
     public GameObject fullCollider;
@@ -43,7 +46,7 @@ public class PressurePlate : MonoBehaviour {
         notActivatedColour.a = 1;
         pressedColour.a = 1;
 
-        partToRecolour.material.color = notActivatedColour;
+        partToRecolour.materials[materialIndex].color = notActivatedColour;
         fullCollider.SetActive(false);
         smallerCollider.SetActive(true);
         checkmark.SetActive(false);
@@ -54,8 +57,8 @@ public class PressurePlate : MonoBehaviour {
         }
         else {
             foreach (var obj in objectsToActivateWithButton) {
-                var comp = obj.GetComponentInChildren<ActivateByPressurePlate>();
-                if (comp != null) {
+                var comps = obj.GetComponentsInChildren<ActivateByPressurePlate>();
+                foreach (var comp in comps) {
                     activatedByPressurePlate.Add(comp);
                 }
             }
@@ -85,7 +88,7 @@ public class PressurePlate : MonoBehaviour {
         }
     }
 
-    private void FindOtherButtonsThatActivateTheSameObjects() { 
+    private void FindOtherButtonsThatActivateTheSameObjects() {
         foreach (var obj in activatedByPressurePlate) {
             otherButtonsThatActivateTheSameObjects.AddRange(obj.pressurePlatesThatActivateThis);
         }
@@ -143,7 +146,7 @@ public class PressurePlate : MonoBehaviour {
 
         if (currentPressCount >= numberOfObjectsRequired && !isPressed) {
             PressButton();
-        } 
+        }
 
         if (currentPressCount < numberOfObjectsRequired && isPressed) {
             UnPressButton();
@@ -151,17 +154,20 @@ public class PressurePlate : MonoBehaviour {
 
         if (isPressed && isPermanentPress && !allPermanentButtonsHaveBeenPressedAtTheSameTime) {
             allPermanentButtonsHaveBeenPressedAtTheSameTime = otherButtonsThatActivateTheSameObjects.All(x => x.isPressed);
-            PressButton();
+            if (allPermanentButtonsHaveBeenPressedAtTheSameTime) {
+                PressButton();
+            }
         }
     }
 
     private void PressButton() {
         isPressed = true;
+        SoundManager.instance.PlaySound(audioSource);
         targetYForPartThatMoves = pressedButtonYPos;
         fullCollider.SetActive(false);
         smallerCollider.SetActive(true);
 
-        partToRecolour.material.color = pressedColour;
+        partToRecolour.materials[materialIndex].color = pressedColour;
 
         if (isPermanentPress && allPermanentButtonsHaveBeenPressedAtTheSameTime) {
             if (textOnButton != null) {
@@ -185,7 +191,7 @@ public class PressurePlate : MonoBehaviour {
         targetYForPartThatMoves = 0;
         fullCollider.SetActive(true);
         smallerCollider.SetActive(false);
-        partToRecolour.material.color = notActivatedColour;
+        partToRecolour.materials[materialIndex].color = notActivatedColour;
 
         if (isPermanentPress) {
             if (textOnButton != null) {
