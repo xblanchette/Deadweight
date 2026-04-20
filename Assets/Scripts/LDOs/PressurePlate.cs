@@ -36,7 +36,7 @@ public class PressurePlate : MonoBehaviour {
 
     private bool allPermanentButtonsHaveBeenPressedAtTheSameTime = false;
 
-    private List<GameObject> objectsPressingOnButton = new();
+    private Dictionary<ButtonPresser, List<GameObject>> objectsPressingOnButton = new();
     private float targetYForPartThatMoves = 0;
     private List<Wire> wiresToActivate = new();
     private List<ActivateByPressurePlate> activatedByPressurePlate = new();
@@ -108,15 +108,33 @@ public class PressurePlate : MonoBehaviour {
         }
         objectEntered = buttonPresser.gameObject;
 
-        if (objectsPressingOnButton.Contains(objectEntered)) {
-            return;
+        List<GameObject> list = new();
+        if (objectsPressingOnButton.ContainsKey(buttonPresser)) {
+            list = objectsPressingOnButton[buttonPresser];
+            if (list == null) {
+                list = new();
+            }
+
+            if (list.Contains(objectEntered)) {
+                return;
+            }
         }
+
+        var canPressOnPlate = false;
 
         foreach (var activator in thingsThatCanActivateButton) {
             if (activator == buttonPresser.buttonPresserType) {
-                objectsPressingOnButton.Add(objectEntered);
+                list.Add(objectEntered);
+                canPressOnPlate = true;
                 break;
             }
+        }
+
+        if (canPressOnPlate) {
+            objectsPressingOnButton[buttonPresser] = list;
+        }
+        else {
+            objectsPressingOnButton.Remove(buttonPresser);
         }
     }
 
@@ -132,13 +150,31 @@ public class PressurePlate : MonoBehaviour {
         }
         objectEntered = buttonPresser.gameObject;
 
-        if (objectsPressingOnButton.Contains(objectEntered)) {
-            objectsPressingOnButton.Remove(objectEntered);
+        List<GameObject> list = new();
+        if (objectsPressingOnButton.ContainsKey(buttonPresser)) {
+            list = objectsPressingOnButton[buttonPresser];
+            if (list == null) {
+                list = new();
+            }
+
+            if (list.Contains(objectEntered)) {
+                list.Remove(objectEntered);
+            }
         }
+        else {
+            return;
+        }
+
+        if (list.Any()) {
+            objectsPressingOnButton[buttonPresser] = list;
+        }
+        else {
+            objectsPressingOnButton.Remove(buttonPresser);
+        }  
     }
 
     private void FixedUpdate() {
-        var currentPressCount = objectsPressingOnButton.Count;
+        var currentPressCount = objectsPressingOnButton.Sum(kv => kv.Key.weightValue);
 
         if (displayTextOnButton && textOnButton != null) {
             textOnButton.text = $"{currentPressCount}/{numberOfObjectsRequired}";
@@ -164,8 +200,9 @@ public class PressurePlate : MonoBehaviour {
         isPressed = true;
         SoundManager.instance.PlaySound(audioSource);
         targetYForPartThatMoves = pressedButtonYPos;
-        fullCollider.SetActive(false);
-        smallerCollider.SetActive(true);
+
+        //fullCollider.SetActive(false);
+        //smallerCollider.SetActive(true);
 
         partToRecolour.materials[materialIndex].color = pressedColour;
 
@@ -189,8 +226,10 @@ public class PressurePlate : MonoBehaviour {
 
         isPressed = false;
         targetYForPartThatMoves = 0;
-        fullCollider.SetActive(true);
-        smallerCollider.SetActive(false);
+
+        //fullCollider.SetActive(true);
+        //smallerCollider.SetActive(false);
+
         partToRecolour.materials[materialIndex].color = notActivatedColour;
 
         if (isPermanentPress) {
