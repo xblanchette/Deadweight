@@ -547,7 +547,7 @@ MonoBehaviour:
   normalMoveSpeed: 4
   carryingMoveSpeed: 3
   rotationSpeedSmoothness: 5
-  carryingRotationSpeedSmoothness: 1.5
+  carryingRotationSpeedSmoothness: 1
   deadzone: 0.15
   normalizeMoveInput: 1
   cameraOffset: {x: -12, y: 10, z: -12}
