@@ -547,7 +547,7 @@ MonoBehaviour:
   normalMoveSpeed: 4
   carryingMoveSpeed: 3
   rotationSpeedSmoothness: 5
-  carryingRotationSpeedSmoothness: 1
+  carryingRotationSpeedSmoothness: 1.5
   deadzone: 0.15
   normalizeMoveInput: 1
   cameraOffset: {x: -12, y: 10, z: -12}
@@ -565,7 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39bef2e589073fb4da7dbbc6d93079e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castDistance: 1.5
+  castDistance: 1
   castRadius: 1
   grabLayer:
     serializedVersion: 2
